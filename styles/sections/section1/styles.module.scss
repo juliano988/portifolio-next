@@ -1,0 +1,88 @@
+.container {
+  background-image: url("../../../public/imgs/bgs/bg.gif"), url("../../../public/imgs/bgs/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.intro_div {
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.synthetic_tippy {
+  position: relative;
+  bottom: 100px;
+  margin: auto;
+  padding: 5px;
+  color: #343a40;
+  background-color: #f8f9fa;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  animation-name: synthetic-tippy-down;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes synthetic-tippy-down {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(100px);
+  }
+}
+
+.title {
+  color: hsl(0, 0%, 90%);
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.title * {
+  text-shadow: 2px 2px hsla(210, 10%, 23%, 0.5);
+}
+
+.title h1 {
+  cursor: pointer;
+}
+
+.title h1:hover {
+  text-decoration: underline;
+}
+
+.projects h5 {
+  margin-top: 10px;
+  text-shadow: 2px 2px hsla(210, 10%, 23%, 0.5);
+}
+
+.projects div {
+  position: relative;
+  top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 0px;
+}
+
+.projects div a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 150px;
+  height: 5rem;
+  margin: 5px;
+  font-weight: bold;
+}
