@@ -1,0 +1,20 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+html {
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+body {
+  @extend .text-light;
+  @extend .bg-dark;
+  text-align: center;
+  margin: 0px;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

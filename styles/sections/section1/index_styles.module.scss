@@ -23,6 +23,7 @@
   position: relative;
   bottom: 100px;
   margin: auto;
+  width: 200px;
   padding: 5px;
   color: #343a40;
   background-color: #f8f9fa;
@@ -32,6 +33,7 @@
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
+  animation-delay: 500ms;
 }
 
 @keyframes synthetic-tippy-down {
@@ -44,7 +46,6 @@
 }
 
 .title {
-  color: hsl(0, 0%, 90%);
   padding: 10px;
   border-radius: 10px;
   margin-left: 20px;
