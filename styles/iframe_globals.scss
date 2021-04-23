@@ -1,0 +1,13 @@
+iframe {
+  height: 100vh;
+  width: 100vw;
+}
+
+.carousel-caption {
+  background-color: hsla(0, 0%, 30%, 0.85);
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  width: 10%;
+}

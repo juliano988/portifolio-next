@@ -16,7 +16,7 @@ export default function MainSection() {
         <div className={index_styles.title}>
           <h1 onClick={() => setshowProfileModal(true)}>Júlio Faria</h1>
           <ProfileModal state={showProfileModal} setState={setshowProfileModal} />
-          <h5>Full Stack Web Developer and Engineer</h5>
+          <h5>Engineer and Full Stack Web Developer</h5>
         </div>
         <div className={index_styles.projects}>
           <h5>Projects:</h5>
