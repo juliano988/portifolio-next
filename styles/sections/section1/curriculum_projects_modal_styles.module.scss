@@ -1,0 +1,15 @@
+.modal div {
+  text-align: justify;
+  background-color: #343a40 !important;
+  border-radius: 0.3rem;
+}
+
+.modal_buttons_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50vh;
+  button {
+    margin: 5px;
+  }
+}

@@ -1,6 +1,6 @@
 import { Badge, Button, Media, Modal } from 'react-bootstrap';
 import React, { Children, useEffect } from 'react';
-import profile_modal_styles from '../../styles/sections/section1/profile_modal_styles.module.scss'
+import styles from '../../styles/sections/section1/profile_modal_styles.module.scss'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { followCursor } from 'tippy.js';
@@ -9,7 +9,7 @@ import { followCursor } from 'tippy.js';
 export default function ProfileModal(props: { state: boolean, setState: React.Dispatch<React.SetStateAction<boolean>> }) {
 
   return (
-    <Modal className={profile_modal_styles.modal} size="lg" scrollable={true} show={props.state} onHide={() => props.setState(false)}>
+    <Modal className={styles.modal} size="lg" scrollable={true} show={props.state} onHide={() => props.setState(false)}>
       <Modal.Header closeButton>
         <Modal.Title>About Júlio Faria</Modal.Title>
       </Modal.Header>
@@ -25,7 +25,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         <p>As soon as I am new in the development area, I don't have any professional experience on it yet.<br />
              My professional experiences were in engineering and computer support areas.
           </p>
-        <div className={profile_modal_styles.academic_div}>
+        <div className={styles.academic_div}>
           <Media >
             <img src="./imgs/academics/fcc.jpg" width={75} height={75} className="mr-3" alt="Free Code Camp" />
             <Media.Body>
@@ -72,7 +72,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           </li>
         </ul>
         <h5>Development tools learned</h5>
-        <div className={profile_modal_styles.web_tools}>
+        <div className={styles.web_tools}>
           <ToolsTippy content="HTML5"><img src="imgs/tools/html5.jpg" alt="HTML5" /></ToolsTippy>
           <ToolsTippy content="CSS3"><img src="imgs/tools/css3.png" alt="CSS3" /></ToolsTippy>
           <ToolsTippy content="JavaScript" ><img src="imgs/tools/js.png" alt="JavaScript" /></ToolsTippy>
@@ -90,11 +90,10 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         <h5>Not satisfied?</h5>
         <p>Check out my complete profile on
           <a href="https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge"
-            target="_blank">Linkedin!</a>
+            target="_blank"> Linkedin!</a>
         </p>
-        <div className="LI-profile-badge" data-version="v1" data-size="large" data-locale="pt_BR"
-          data-type="horizontal" data-theme="dark" data-vanity="júlio-faria-144832145"><a className="LI-simple-link"
-            href='https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge'>Júlio Faria</a>
+        <div className={styles.linkedIn_card}>
+          <div className="LI-profile-badge" data-version="v1" data-size="large" data-locale="pt_BR" data-type="horizontal" data-theme="dark" data-vanity="júlio-faria-jf"><a className="LI-simple-link" href='https://br.linkedin.com/in/j%C3%BAlio-faria-jf?trk=profile-badge'>Júlio Faria</a></div>
         </div>
         <h5>Contact me!</h5>
         <p>If you enjoyed my work and want to get in touch, feel free to do so!</p>
@@ -113,7 +112,6 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
 }
 
 function ToolsTippy(props: { children: any, content: string }) {
-
   return (
     <Tippy
       content={props.content}
