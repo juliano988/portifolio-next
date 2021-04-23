@@ -14,7 +14,7 @@ export default function FccCurSect1() {
       <Carousel fade activeIndex={index} onSelect={handleSelect}>
 
         <Carousel.Item>
-          <iframe src="https://tribute-page-jf.netlify.app/"></iframe>
+            <iframe src="https://tribute-page-jf.netlify.app/"></iframe>
           <Carousel.Caption>
             <h4>Tribute Page</h4>
             <p>

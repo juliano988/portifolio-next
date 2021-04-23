@@ -1,13 +1,11 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
-
 html {
   scroll-behavior: smooth;
   overflow: hidden;
 }
 
 body {
-  @extend .text-light;
-  @extend .bg-dark;
+  color: #f8f9fa;
+  background-color: white;
   text-align: center;
   margin: 0px;
 }

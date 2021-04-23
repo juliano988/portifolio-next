@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React, { createContext, useEffect, useState } from 'react'
 import styles from '../styles/index_styles.module.scss'
-import FccSection1 from '../sections/fcc_cur_sec_1'
 import MainSection from '../sections/main_section'
 import { Button } from 'react-bootstrap'
 
@@ -36,13 +35,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SelectedSectionContext.Provider value={setselectedSection}>
-        <Button
-          className={styles.arrow + ' ' + (showArrow ? styles.show_arrow : styles.hide_arrow)}
-          onClick={() => setshowArrow(false)}
-          href="#main_sec"
-          variant="dark">▲</Button>
-        <MainSection />
-        {selectedSection}
+          <Button
+            className={styles.arrow + ' ' + (showArrow ? styles.show_arrow : styles.hide_arrow)}
+            onClick={() => setshowArrow(false)}
+            href="#main_sec"
+            variant="dark">▲</Button>
+          <MainSection />
+          {selectedSection}
       </SelectedSectionContext.Provider>
     </div>
   )

@@ -4,6 +4,7 @@ import styles from '../../styles/sections/section1/profile_modal_styles.module.s
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { followCursor } from 'tippy.js';
+import 'tippy.js/animations/shift-toward.css';
 
 
 export default function ProfileModal(props: { state: boolean, setState: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -117,6 +118,7 @@ function ToolsTippy(props: { children: any, content: string }) {
       content={props.content}
       followCursor={true}
       arrow={false}
+      animation={'shift-toward'}
       plugins={[followCursor]}>
       {props.children}
     </Tippy>

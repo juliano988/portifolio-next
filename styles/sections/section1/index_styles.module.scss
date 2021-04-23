@@ -47,6 +47,8 @@
 
 .title {
   padding: 10px;
+  border-style: solid;
+  border-width: thin;
   border-radius: 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -78,12 +80,17 @@
   padding: 0px;
 }
 
-.projects div a {
+.projects div button {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 150px;
+  width: 150px;
   height: 5rem;
   margin: 5px;
-  font-weight: bold;
+}
+
+@media (max-width: 575.98px) {
+  .container{
+    background-image: url("../../../public/imgs/bgs/bg.jpg");
+  }
 }
