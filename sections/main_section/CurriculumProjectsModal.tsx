@@ -24,7 +24,7 @@ export default function CurriculumProjectsModal(props: { state: boolean, setStat
   }
 
   return (
-    <Modal className={styles.modal} show={props.state} onHide={() => props.setState(false)}>
+    <Modal show={props.state} onHide={() => props.setState(false)}>
       <Modal.Header closeButton>
         <Modal.Title>freeCodeCamp Curriculum Projects</Modal.Title>
       </Modal.Header>

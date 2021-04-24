@@ -27,13 +27,13 @@ export default function FccCurSect4() {
         </Carousel.Item>
 
         <Carousel.Item>
-          <iframe src="https://fcc-scatter-plot.juliano988.repl.co/"></iframe>
+          <iframe src="https://fcc-scatter-plot-1.juliano988.repl.co/"></iframe>
           <Carousel.Caption>
             <h4>Visualize Data with a Scatterplot Graph</h4>
             <p>
               Second project of the <b>Data Visualization</b> of the <a
                 href="https://www.freecodecamp.org/news/about/" target="_blank">Free Code Camp</a> community.
-              <br /><a href="https://fcc-scatter-plot.juliano988.repl.co/" target="_blank">Click here
+              <br /><a href="https://fcc-scatter-plot-1.juliano988.repl.co/" target="_blank">Click here
               to access the project</a>
             </p>
           </Carousel.Caption>

@@ -1,29 +1,11 @@
-.modal div {
-  text-align: justify;
-  background-color: #343a40 !important;
-  border-radius: 0.3rem;
-}
-
-.academic_div div {
-  margin-bottom: 5px;
-}
-
 .web_tools {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  margin-bottom: 10px;
   * {
     height: 75px;
     width: 75px;
     margin: 5px;
     border-radius: 10px;
-  }
-}
-
-.linkedIn_card {
-  margin-bottom: 10px;
-  * {
-    background: inherit !important;
   }
 }

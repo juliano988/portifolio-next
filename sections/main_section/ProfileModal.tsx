@@ -10,7 +10,7 @@ import 'tippy.js/animations/shift-toward.css';
 export default function ProfileModal(props: { state: boolean, setState: React.Dispatch<React.SetStateAction<boolean>> }) {
 
   return (
-    <Modal className={styles.modal} size="lg" scrollable={true} show={props.state} onHide={() => props.setState(false)}>
+    <Modal size="lg" scrollable={true} show={props.state} onHide={() => props.setState(false)}>
       <Modal.Header closeButton>
         <Modal.Title>About Júlio Faria</Modal.Title>
       </Modal.Header>
@@ -23,34 +23,45 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
            I can easily deal with new technologies and I am always willing to learn new things in different areas. I am also proactive and try to relate well with people, despite being a little shy.
            </p>
         <h5>Professional Experiences</h5>
-        <p>As soon as I am new in the development area, I don't have any professional experience on it yet.<br />
-             My professional experiences were in engineering and computer support areas.
-          </p>
-        <div className={styles.academic_div}>
+        <Media >
+          <img src="./imgs/company/kornerz.png" width={75} height={75} className="mr-3" alt="Free Code Camp" />
+          <Media.Body>
+            <h6>Kornerz</h6>
+                  <p>Front-end web developer<br />January/2021 - April/2021<br/>
+                  I was responsible for the front-end web development of the company's projects, using React as the base technology.</p>
+            </Media.Body>
+        </Media>
+        <h5>Academic education</h5>
+        <div>
           <Media >
             <img src="./imgs/academics/fcc.jpg" width={75} height={75} className="mr-3" alt="Free Code Camp" />
             <Media.Body>
               <h6>Free Code Camp</h6>
-                  Full Stack web developer<br />2020 - Currently
+                  <p>Full Stack web developer<br />2020 - Currently</p>
             </Media.Body>
           </Media>
           <Media >
             <img src="imgs/academics/PUC.png" width={75} height={75} className="mr-3" alt="PUC Minas" />
             <Media.Body>
               <h6>PUC Minas</h6>
-                  Electronics and Telecommunications Engineer<br />2014 - 2020
+                  <p>Electronics and Telecommunications Engineer<br />2014 - 2020</p>
             </Media.Body>
           </Media>
           <Media >
             <img src="./imgs/academics/cotemig.jpg" width={75} height={75} className="mr-3" alt="COTEMIG" />
             <Media.Body>
               <h6>COTEMIG</h6>
-                  Computer technician<br />2011 - 2013
+                  <p>Computer technician<br />2011 - 2013</p>
             </Media.Body>
           </Media>
         </div>
         <h5>Certificates</h5>
         <ul>
+        <li>
+            <h6>Data Visualization <Badge variant="secondary">2021</Badge></h6>
+            <a href="https://freecodecamp.org/certification/julio_faria/data-visualization"
+              target="_blank">See the certification</a>
+          </li>
           <li>
             <h6>APIs and Microservices <Badge variant="secondary">2020</Badge></h6>
             <a href="https://www.freecodecamp.org/certification/julio_faria/apis-and-microservices"
@@ -87,15 +98,13 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           <ToolsTippy content="Typescript" ><img src="imgs/tools/typescript.png" alt="Typescript" /></ToolsTippy>
           <ToolsTippy content="Git" ><img src="imgs/tools/git.png" alt="Git" /></ToolsTippy>
           <ToolsTippy content="Expo" ><img src="imgs/tools/expo.png" alt="Expo" /></ToolsTippy>
+          <ToolsTippy content="Next.js" ><img src="imgs/tools/next.png" alt="Next.js" /></ToolsTippy>
         </div>
         <h5>Not satisfied?</h5>
         <p>Check out my complete profile on
           <a href="https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge"
             target="_blank"> Linkedin!</a>
         </p>
-        <div className={styles.linkedIn_card}>
-          <div className="LI-profile-badge" data-version="v1" data-size="large" data-locale="pt_BR" data-type="horizontal" data-theme="dark" data-vanity="júlio-faria-jf"><a className="LI-simple-link" href='https://br.linkedin.com/in/j%C3%BAlio-faria-jf?trk=profile-badge'>Júlio Faria</a></div>
-        </div>
         <h5>Contact me!</h5>
         <p>If you enjoyed my work and want to get in touch, feel free to do so!</p>
         <p>📧 Email:</p>
@@ -105,7 +114,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         </ul>
       </Modal.Body>
       <Modal.Footer>
-        <h6>Last update: March, 2021</h6>
+        <h6>Last update: April, 2021</h6>
         <Button variant="secondary" onClick={() => props.setState(false)}> Close </Button>
       </Modal.Footer>
     </Modal>
