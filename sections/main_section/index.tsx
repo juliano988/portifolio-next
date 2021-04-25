@@ -1,4 +1,4 @@
-import index_styles from '../../styles/sections/section1/index_styles.module.scss';
+import styles from '../../styles/sections/section1/index_styles.module.scss';
 import { Button } from 'react-bootstrap';
 import React, { useContext, useState } from 'react';
 import ProfileModal from './ProfileModal';
@@ -22,15 +22,15 @@ export default function MainSection() {
   }
 
   return (
-    <section id="main_sec" className={index_styles.container}>
-      <div className={index_styles.intro_div}>
-        <p className={index_styles.synthetic_tippy}>Want to know me better?<br /> <b>So click on my name!</b></p>
-        <div className={index_styles.title}>
+    <section id="main_sec" className={styles.container}>
+      <div className={styles.intro_div}>
+        <p className={styles.synthetic_tippy}>Want to know me better?<br /> <b>So click on my name!</b></p>
+        <div className={styles.title}>
           <h1 onClick={() => setshowProfileModal(true)}>Júlio Faria</h1>
           <ProfileModal state={showProfileModal} setState={setshowProfileModal} />
           <h5>Engineer and Full Stack Web Developer</h5>
         </div>
-        <div className={index_styles.projects}>
+        <div className={styles.projects}>
           <h5>Projects:</h5>
           <div>
             <Button onClick={() => setshowCurriculumProjectsModal(true)} variant="dark">freeCodeCamp<br /> Curriculum Projects</Button>
