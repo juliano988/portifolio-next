@@ -37,7 +37,7 @@ export default function Others() {
             <p>
               <a href="https://appetize.io/app/e7k1gd5vaj9g8enu4ta23417v0" target="_blank">Click here to access the
                   project</a> |
-                <a href="https://github.com/juliano988/portifolio-next/raw/main/apks/clima-jf-APK.apk">Download the APK</a>
+                <a href="apks/clima-jf-APK.apk">Download the APK</a>
             </p>
           </Carousel.Caption>
         </Carousel.Item>
