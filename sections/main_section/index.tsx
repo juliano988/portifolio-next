@@ -1,4 +1,4 @@
-import styles from '../../styles/sections/section1/index_styles.module.scss';
+import styles from '../../styles/sections/main_section/index_styles.module.scss';
 import { Button } from 'react-bootstrap';
 import React, { useContext, useState } from 'react';
 import ProfileModal from './ProfileModal';
@@ -9,7 +9,7 @@ import Others from '../others';
 export default function MainSection() {
 
   const [showProfileModal, setshowProfileModal] = useState(false);
-  const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
+  const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(true);
 
   const setselectedSection = useContext(SelectedSectionContext)
 

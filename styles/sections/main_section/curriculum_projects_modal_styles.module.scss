@@ -8,8 +8,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 50vh;
-  button {
-    margin: 5px;
+}
+
+.modal_buttons_description_div {
+  margin: 5px;
+  padding: 5px;
+  button{
+    width: 100%;
+  }
+  hr{
+    margin-bottom: 0px;
   }
 }
