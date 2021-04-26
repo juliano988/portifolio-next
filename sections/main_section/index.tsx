@@ -9,7 +9,7 @@ import Others from '../others';
 export default function MainSection() {
 
   const [showProfileModal, setshowProfileModal] = useState(false);
-  const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(true);
+  const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
 
   const setselectedSection = useContext(SelectedSectionContext)
 
