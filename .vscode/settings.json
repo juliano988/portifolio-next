@@ -8,6 +8,7 @@
         "setloaded",
         "setselected",
         "setshow",
+        "setwindow",
         "tippyjs"
     ]
 }

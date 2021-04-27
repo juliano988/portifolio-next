@@ -8,15 +8,8 @@ export const SelectedSectionContext = createContext<React.Dispatch<React.SetStat
 
 export default function Home() {
 
-  const [loaded, setloaded] = useState(false)
   const [showArrow, setshowArrow] = useState(false)
   const [selectedSection, setselectedSection] = useState<JSX.Element | null>(null);
-
-  useEffect(function () {
-    window.onload = function () {
-      setloaded(true);
-    }
-  }, [])
 
   useEffect(function () {
     if (location.hash !== '') {
@@ -35,13 +28,12 @@ export default function Home() {
     window.addEventListener('hashchange', hashChangeFunc);
   }, [])
 
-  if (loaded) {
-    return (
-      <div>
-        <Head>
-          <title>Júlio Faria's portfolio</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+  return (
+    <div>
+      <Head>
+        <title>Júlio Faria's portfolio</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <SelectedSectionContext.Provider value={setselectedSection}>
           <Button
             className={styles.arrow + ' ' + (showArrow ? styles.show_arrow : styles.hide_arrow)}
@@ -51,12 +43,6 @@ export default function Home() {
           <MainSection />
           {selectedSection}
         </SelectedSectionContext.Provider>
-      </div>
-    )
-  } else {
-    return (
-      <>
-      </>
-    )
-  }
+    </div>
+  )
 }

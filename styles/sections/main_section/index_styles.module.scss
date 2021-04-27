@@ -1,13 +1,19 @@
-.container {
-  background-image: url("../../../public/imgs/bgs/bg.gif"), url("../../../public/imgs/bgs/bg.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+.bg_video{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
 }
 
 .intro_div {
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
   animation-name: fade;
+  animation-fill-mode: forwards;
   animation-duration: 2s;
+  animation-delay: 500ms;
 }
 
 @keyframes fade {
@@ -33,7 +39,7 @@
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-  animation-delay: 500ms;
+  animation-delay: 1s;
 }
 
 @keyframes synthetic-tippy-down {
@@ -92,5 +98,8 @@
 @media (max-width: 575.98px) {
   .container{
     background-image: url("../../../public/imgs/bgs/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 }
