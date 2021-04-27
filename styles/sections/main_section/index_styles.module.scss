@@ -13,7 +13,7 @@
   animation-name: fade;
   animation-fill-mode: forwards;
   animation-duration: 2s;
-  animation-delay: 500ms;
+  animation-delay: 250ms;
 }
 
 @keyframes fade {
@@ -39,7 +39,7 @@
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-  animation-delay: 1s;
+  animation-delay: 250ms;
 }
 
 @keyframes synthetic-tippy-down {
