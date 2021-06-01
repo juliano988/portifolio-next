@@ -1,0 +1,22 @@
+.modal div {
+  text-align: justify;
+  background-color: #343a40;
+  border-radius: 0.3rem;
+}
+
+.modal_buttons_div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal_buttons_description_div {
+  margin: 5px;
+  padding: 5px;
+  button{
+    width: 100%;
+  }
+  hr{
+    margin-bottom: 0px;
+  }
+}

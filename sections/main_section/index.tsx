@@ -5,12 +5,14 @@ import ProfileModal from './ProfileModal';
 import CurriculumProjectsModal from './CurriculumProjectsModal';
 import { SelectedSectionContext } from '../../pages';
 import Others from '../others';
+import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 
 export default function MainSection() {
 
   const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
   const [showProfileModal, setshowProfileModal] = useState(false);
   const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
+  const [showDevelopmentChallengesModal, setshowDevelopmentChallengesModal] = useState(false);
 
   const setselectedSection = useContext(SelectedSectionContext)
 
@@ -58,6 +60,9 @@ export default function MainSection() {
           <div>
             <Button onClick={() => setshowCurriculumProjectsModal(true)} variant="dark">freeCodeCamp<br /> Curriculum Projects</Button>
             <CurriculumProjectsModal state={showCurriculumProjectsModal} setState={setshowCurriculumProjectsModal} />
+
+            <Button onClick={() => setshowDevelopmentChallengesModal(true)} variant="primary">Company Development Challenges</Button>
+            <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
 
             <Button onClick={() => handleClickButtons("#others")} variant="danger"> Others</Button>
           </div>
