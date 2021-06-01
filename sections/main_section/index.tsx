@@ -4,8 +4,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import ProfileModal from './ProfileModal';
 import CurriculumProjectsModal from './CurriculumProjectsModal';
 import { SelectedSectionContext } from '../../pages';
-import Others from '../others';
+
 import DevelopmentChallengesModal from './DevelopmentChallengesModal';
+import TakeHomeProjects from '../fcc_THP';
 
 export default function MainSection() {
 
@@ -36,7 +37,7 @@ export default function MainSection() {
 
   function handleClickButtons(secId: string) {
     switch (secId) {
-      case '#others': setselectedSection(<Others />); break;
+      case '#fcc_THP': setselectedSection(<TakeHomeProjects />); break;
       default: break;
     }
     setTimeout(() => window.location.href = secId, 500);
@@ -64,7 +65,7 @@ export default function MainSection() {
             <Button onClick={() => setshowDevelopmentChallengesModal(true)} variant="primary">Company Development Challenges</Button>
             <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
 
-            <Button onClick={() => handleClickButtons("#others")} variant="danger"> Others</Button>
+            <Button onClick={() => handleClickButtons("#fcc_THP")} variant="success"> freeCodeCamp<br /> Take Home Projects</Button>
           </div>
         </div>
       </div>
