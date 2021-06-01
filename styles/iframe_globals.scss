@@ -5,4 +5,17 @@ iframe {
 
 .carousel-caption {
   background-color: hsla(0, 0%, 30%, 0.85);
+  a {
+    color: rgb(52, 206, 253);
+  }
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  span {
+    background-color: black;
+    border-style: solid;
+    border-color: black;
+    border-radius: 100%;
+  }
 }

@@ -28,7 +28,7 @@ export default function DevelopmentChallengesModal(props: { state: boolean, setS
         <Modal.Body>
           <div className={styles.modal_buttons_div}>
             <div className={styles.modal_buttons_description_div}>
-              <p>Challenges developed using React.js, Next.js, Node.js and MongoDB.</p>
+              <p>Challenges developed using <strong>React.js</strong>, <strong>Next.js</strong>, <strong>Node.js</strong> and <strong>MongoDB</strong>.</p>
               <Button onClick={() => handleClickButtons("#dev_chall_sec_1")} variant="primary">Challenges developed on 1º/2021</Button>
               <hr />
             </div>
