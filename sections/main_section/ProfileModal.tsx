@@ -20,7 +20,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           <h5>Professional Profile</h5>
           <p>I graduated as a <b>Computer Technician</b> from <a href="https://www.cotemig.com.br/">COTEMIG </a>
            in 2013 and in <b>Electronic and Telecommunications Engineering</b> from <a href="https://www.pucminas.br/">PUC Minas </a>
-           in 2020. I am currently specializing in Full Stack web development on <a href="https://www.freecodecamp.org/news/about/" target="_blank">Free Code Camp </a>
+           in 2020. I am currently specializing in Full Stack web development on <a href="https://www.freecodecamp.org/news/about/" target="_blank">freeCodeCamp </a>
            community.<br />
            I can easily deal with new technologies and I am always willing to learn new things in different areas. I am also proactive and try to relate well with people, despite being a little shy.
            </p>
@@ -38,7 +38,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
             <Media >
               <img src="./imgs/academics/fcc.jpg" width={75} height={75} className="mr-3" alt="Free Code Camp" />
               <Media.Body>
-                <h6>Free Code Camp</h6>
+                <h6>freeCodeCamp</h6>
                 <p>Full Stack web developer<br />2020 - Currently</p>
               </Media.Body>
             </Media>
@@ -105,7 +105,8 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           <h5>Not satisfied?</h5>
           <p>Check out my complete profile on
           <a href="https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge"
-              target="_blank"> Linkedin!</a>
+              target="_blank"> Linkedin!</a><br />
+            And all my projects on <a href="https://github.com/juliano988" target="_blank"> GitHub!</a>
           </p>
           <h5>Contact me!</h5>
           <p>If you enjoyed my work and want to get in touch, feel free to do so!</p>
@@ -117,7 +118,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         </Modal.Body>
       </Scrollbars>
       <Modal.Footer>
-        <h6>Last update: April, 2021</h6>
+        <h6>Last update: June, 2021</h6>
         <Button variant="secondary" onClick={() => props.setState(false)}> Close </Button>
       </Modal.Footer>
     </Modal>

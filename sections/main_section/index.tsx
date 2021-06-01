@@ -66,6 +66,7 @@ export default function MainSection() {
             <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
 
             <Button onClick={() => handleClickButtons("#fcc_THP")} variant="success"> freeCodeCamp<br /> Take Home Projects</Button>
+            
           </div>
         </div>
       </div>
