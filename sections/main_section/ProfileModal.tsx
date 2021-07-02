@@ -101,6 +101,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
             <ToolsTippy content="Git" ><img src="imgs/tools/git.png" alt="Git" /></ToolsTippy>
             <ToolsTippy content="Expo" ><img src="imgs/tools/expo.png" alt="Expo" /></ToolsTippy>
             <ToolsTippy content="Next.js" ><img src="imgs/tools/next.png" alt="Next.js" /></ToolsTippy>
+            <ToolsTippy content="Chai" ><img src="imgs/tools/chai.png" alt="Chai" /></ToolsTippy>
           </div>
           <h5>Not satisfied?</h5>
           <p>Check out my complete profile on
