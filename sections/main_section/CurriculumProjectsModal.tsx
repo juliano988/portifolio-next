@@ -7,6 +7,7 @@ import FccCurSect1 from '../fcc_cur_sec_1';
 import FccCurSect2 from '../fcc_cur_sec_2';
 import FccCurSect3 from '../fcc_cur_sec_3';
 import FccCurSect4 from '../fcc_cur_sec_4';
+import FccCurSect5 from '../fcc_cur_sec_5';
 
 export default function CurriculumProjectsModal(props: { state: boolean, setState: React.Dispatch<React.SetStateAction<boolean>> }) {
 
@@ -18,6 +19,7 @@ export default function CurriculumProjectsModal(props: { state: boolean, setStat
       case '#fcc_cur_sec_2': setselectedSection(<FccCurSect2 />); break;
       case '#fcc_cur_sec_3': setselectedSection(<FccCurSect3 />); break;
       case '#fcc_cur_sec_4': setselectedSection(<FccCurSect4 />); break;
+      case '#fcc_cur_sec_5': setselectedSection(<FccCurSect5 />); break;
       default: break;
     }
     props.setState(false);
@@ -54,6 +56,11 @@ export default function CurriculumProjectsModal(props: { state: boolean, setStat
               <p>In this certification, I've learned how to build charts, graphs, and maps to present different types of data with the <strong>D3.js</strong> library.<br />
               All the certification projects were made using <strong>Next.js</strong> framework.</p>
               <Button onClick={() => handleClickButtons("#fcc_cur_sec_4")} variant="warning">Data Visualization</Button>
+              <hr/>
+            </div>
+            <div className={styles.modal_buttons_description_div}>
+              <p>Focousing on software quality, this certification taught how to create unit tests on server side with <strong>Chai</strong>.</p>
+              <Button onClick={() => handleClickButtons("#fcc_cur_sec_5")} variant="danger">Quality Assurance</Button>
               <hr/>
             </div>
           </div>
