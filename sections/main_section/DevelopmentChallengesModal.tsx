@@ -4,6 +4,7 @@ import styles from '../../styles/sections/main_section/development_challenges_mo
 import { SelectedSectionContext } from '../../pages';
 import { Scrollbars } from 'react-custom-scrollbars';
 import DevChallSec1 from '../dev_chall_sec_1';
+import DevChallSec2 from '../dev_chall_sec_2';
 
 
 export default function DevelopmentChallengesModal(props: { state: boolean, setState: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -13,6 +14,7 @@ export default function DevelopmentChallengesModal(props: { state: boolean, setS
   function handleClickButtons(secId: string) {
     switch (secId) {
       case '#dev_chall_sec_1': setselectedSection(<DevChallSec1 />); break;
+      case '#dev_chall_sec_2': setselectedSection(<DevChallSec2 />); break;
       default: break;
     }
     props.setState(false);
@@ -30,6 +32,12 @@ export default function DevelopmentChallengesModal(props: { state: boolean, setS
             <div className={styles.modal_buttons_description_div}>
               <p>Challenges developed using <strong>React.js</strong>, <strong>Next.js</strong>, <strong>Node.js</strong> and <strong>MongoDB</strong>.</p>
               <Button onClick={() => handleClickButtons("#dev_chall_sec_1")} variant="primary">Challenges developed on 1º/2021</Button>
+              <hr />
+            </div>
+
+            <div className={styles.modal_buttons_description_div}>
+              <p>Challenges developed using <strong>React.js</strong>, <strong>Next.js</strong>, <strong>Node.js</strong>, <strong>MongoDB</strong> and <strong>Expo</strong>.</p>
+              <Button onClick={() => handleClickButtons("#dev_chall_sec_2")} variant="secondary">Challenges developed on 2º/2021</Button>
               <hr />
             </div>
           </div>

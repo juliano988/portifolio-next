@@ -15,7 +15,7 @@ export default function TakeHomeProjects() {
       <Carousel fade activeIndex={index} onSelect={handleSelect}>
 
         <Carousel.Item>
-          <iframe className={styles.climaAppJfIframe} src="https://appetize.io/embed/e7k1gd5vaj9g8enu4ta23417v0?device=iphone8"
+          <iframe className="appIframe" src="https://appetize.io/embed/e7k1gd5vaj9g8enu4ta23417v0?device=iphone8"
             width="378px" height="800px" frameBorder="0" scrolling="no"></iframe>
           <Carousel.Caption>
             <h4>Clima APP</h4>
