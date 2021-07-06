@@ -34,7 +34,8 @@ export default function DevChallSec2() {
             <p>
               <a href="https://appetize.io/app/x17n7d054qny154z4nmfahveyr" target="_blank">Click here to access the
                   project</a><br/>
-                <a href="apks/BookApp.apk">Download the APK</a>
+                <a href="apks/BookApp.apk">Download the APK</a><br/>
+                <a href="https://github.com/juliano988/fullstack-challenge#readme" target="_blank">Documentation</a>
             </p>
           </Carousel.Caption>
         </Carousel.Item>
