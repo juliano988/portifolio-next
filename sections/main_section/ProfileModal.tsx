@@ -59,6 +59,11 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           </div>
           <h5>Certificates</h5>
           <ul>
+          <li>
+              <h6>Quality Assurance <Badge variant="secondary">2021</Badge></h6>
+              <a href="https://www.freecodecamp.org/certification/julio_faria/quality-assurance-v7"
+                target="_blank">See the certification</a>
+            </li>
             <li>
               <h6>Data Visualization <Badge variant="secondary">2021</Badge></h6>
               <a href="https://freecodecamp.org/certification/julio_faria/data-visualization"
