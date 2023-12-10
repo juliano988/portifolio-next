@@ -2,7 +2,7 @@ import { Button, Modal } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import styles from '../../styles/sections/main_section/curriculum_projects_modal_styles.module.scss'
 import { SelectedSectionContext } from '../../pages';
-import { Scrollbars } from 'react-custom-scrollbars';
+
 import FccCurSect1 from '../fcc_cur_sec_1';
 import FccCurSect2 from '../fcc_cur_sec_2';
 import FccCurSect3 from '../fcc_cur_sec_3';
@@ -31,7 +31,7 @@ export default function CurriculumProjectsModal(props: { state: boolean, setStat
       <Modal.Header closeButton>
         <Modal.Title>freeCodeCamp Curriculum Projects</Modal.Title>
       </Modal.Header>
-      <Scrollbars style={{ width: 'auto', height: '100vh' }}>
+      
         <Modal.Body>
           <div className={styles.modal_buttons_div}>
             <div className={styles.modal_buttons_description_div}>
@@ -65,7 +65,7 @@ export default function CurriculumProjectsModal(props: { state: boolean, setStat
             </div>
           </div>
         </Modal.Body>
-      </Scrollbars>
+      
     </Modal>
   )
 }

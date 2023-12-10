@@ -2,7 +2,7 @@ import { Button, Modal } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import styles from '../../styles/sections/main_section/development_challenges_modal_styles.module.scss'
 import { SelectedSectionContext } from '../../pages';
-import { Scrollbars } from 'react-custom-scrollbars';
+
 import DevChallSec1 from '../dev_chall_sec_1';
 import DevChallSec2 from '../dev_chall_sec_2';
 
@@ -26,7 +26,7 @@ export default function DevelopmentChallengesModal(props: { state: boolean, setS
       <Modal.Header closeButton>
         <Modal.Title>Company Development Challenges</Modal.Title>
       </Modal.Header>
-      <Scrollbars style={{ width: 'auto', height: '100vh' }}>
+      
         <Modal.Body>
           <div className={styles.modal_buttons_div}>
             <div className={styles.modal_buttons_description_div}>
@@ -42,7 +42,7 @@ export default function DevelopmentChallengesModal(props: { state: boolean, setS
             </div>
           </div>
         </Modal.Body>
-      </Scrollbars>
+      
     </Modal>
   )
 }
