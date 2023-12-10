@@ -4,7 +4,8 @@ import styles from '../styles/index_styles.module.scss'
 import MainSection from '../sections/main_section'
 import { Button, Spinner } from 'react-bootstrap'
 
-export const SelectedSectionContext = createContext<React.Dispatch<React.SetStateAction<JSX.Element>>>(undefined);
+// @ts-ignore
+export const SelectedSectionContext = createContext<React.Dispatch<React.SetStateAction<JSX.Element | null>>>(null);
 
 export default function Home() {
 
