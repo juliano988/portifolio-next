@@ -29,7 +29,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/_app.js",
+    "src/pages/_app.js",
     ".next/types/**/*.ts"
 , "next.config.js"  ],
   "exclude": [
