@@ -1,8 +1,7 @@
 import { Button, Modal } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import styles from '../../styles/sections/main_section/curriculum_projects_modal_styles.module.scss'
-import { SelectedSectionContext } from '../../pages';
-
+import SelectedSectionContext from '../../app/context/SelectedSectionContext';
 import FccCurSect1 from '../fcc_cur_sec_1';
 import FccCurSect2 from '../fcc_cur_sec_2';
 import FccCurSect3 from '../fcc_cur_sec_3';

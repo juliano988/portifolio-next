@@ -3,8 +3,7 @@ import { Button } from 'react-bootstrap';
 import React, { useContext, useEffect, useState } from 'react';
 import ProfileModal from './ProfileModal';
 import CurriculumProjectsModal from './CurriculumProjectsModal';
-import { SelectedSectionContext } from '../../pages';
-
+import SelectedSectionContext from '../../app/context/SelectedSectionContext';
 import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 import TakeHomeProjects from '../fcc_THP';
 

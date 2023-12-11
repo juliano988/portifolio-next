@@ -1,8 +1,7 @@
 import { Button, Modal } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import styles from '../../styles/sections/main_section/development_challenges_modal_styles.module.scss'
-import { SelectedSectionContext } from '../../pages';
-
+import SelectedSectionContext from '../../app/context/SelectedSectionContext';
 import DevChallSec1 from '../dev_chall_sec_1';
 import DevChallSec2 from '../dev_chall_sec_2';
 

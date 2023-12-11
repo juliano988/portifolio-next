@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import React, { createContext, useEffect, useState } from 'react'
+'use client'
+
+import { Head } from "next/document";
+import { createContext, useEffect, useState } from 'react'
+import { Button } from "react-bootstrap";
+import MainSection from "../sections/main_section";
 import styles from '../styles/index_styles.module.scss'
-import MainSection from '../sections/main_section'
-import { Button, Spinner } from 'react-bootstrap'
+import SelectedSectionContext from "./context/SelectedSectionContext";
 
-// @ts-ignore
-export const SelectedSectionContext = createContext<React.Dispatch<React.SetStateAction<JSX.Element | null>>>(null);
-
-export default function Home() {
+export default function Page() {
 
   const [showArrow, setshowArrow] = useState(false)
   const [selectedSection, setselectedSection] = useState<JSX.Element | null>(null);
@@ -31,10 +31,7 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Júlio Faria's portfolio</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <>
         <SelectedSectionContext.Provider value={setselectedSection}>
           <Button
             className={styles.arrow + ' ' + (showArrow ? styles.show_arrow : styles.hide_arrow)}
@@ -44,6 +41,8 @@ export default function Home() {
           <MainSection />
           {selectedSection}
         </SelectedSectionContext.Provider>
+      </>
     </div>
   )
+
 }
