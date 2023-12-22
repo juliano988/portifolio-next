@@ -1,8 +1,45 @@
-.bg_video{
+.changeColorToWhite {
+  color: whitesmoke;
+  transition: 1s;
+  transition-delay: 500ms;
+  text-shadow: 3px 3px 20px #575757;
+}
+
+.seeWhyAnimation {
+  position: absolute;
+  bottom: 24.8vh;
+  width: 150px;
+  height: 60px;
+  border-radius: 80px;
+  animation-name: seeWhyAnimation;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-play-state: paused;
+}
+
+@keyframes seeWhyAnimation {
+
+  from {
+    height: 60px;
+  }
+
+  to {
+    height: 100dvh;
+    width: 33.33%;
+    bottom: 0px;
+    border-radius: 0px;
+  }
+
+}
+
+// ----------------------
+
+.bg_video {
   position: absolute;
   right: 0;
   bottom: 0;
-  min-width: 100%; 
+  min-width: 100%;
   min-height: 100%;
 }
 
@@ -20,6 +57,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -46,6 +84,7 @@
   0% {
     transform: translateY(0px);
   }
+
   100% {
     transform: translateY(100px);
   }
@@ -96,7 +135,7 @@
 }
 
 @media (max-width: 575.98px) {
-  .container{
+  .container {
     background-image: url("../../../../public/imgs/bgs/bg.jpg");
     background-repeat: no-repeat;
     background-position: center;
