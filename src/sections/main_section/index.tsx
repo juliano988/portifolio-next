@@ -14,10 +14,12 @@ import bg2 from './main_background/2.jpeg';
 import bg3 from './main_background/3.jpeg';
 import bg4 from './main_background/4.jpeg';
 import { StaticImageData } from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function MainSection() {
 
   const AnimatedDiv = useRef<HTMLDivElement>(null);
+  const constraintsRef = useRef(null);
 
   const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4]);
   const [backgroundDescriptions, setbackgroundDescriptions] = useState<Array<string>>([
@@ -33,6 +35,10 @@ export default function MainSection() {
   const [seeWhyBgCounterDirection, setseeWhyBgCounterDirection] = useState<number>(0.1);
 
   const [playSeeWhyAnimation, setplaySeeWhyAnimation] = useState<boolean>(false);
+
+  const [fisrtColumnWidth, setfisrtColumnWidth] = useState<number>(33);
+
+  const [movingMiddleBar, setmovingMiddleBar] = useState<boolean>(false);
 
   const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
   const [showProfileModal, setshowProfileModal] = useState(false);
@@ -135,11 +141,29 @@ export default function MainSection() {
 
   }
 
+  function handleMovingMiddleBar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+
+    e.preventDefault();
+
+    const firstColumnWidth = (e.clientX / window.innerWidth) * 100;
+
+    if (movingMiddleBar) {
+
+      if (firstColumnWidth >= 30 && firstColumnWidth <= 70) {
+
+        setfisrtColumnWidth(firstColumnWidth);
+
+      }
+
+    }
+
+  }
+
   return (
 
-    <section id="main_sec" className='flex'>
+    <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
 
-      <div className='flex justify-center items-center flex-col h-screen w-1/3'>
+      <div style={{ width: `${fisrtColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen'>
 
         <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetAnimation()}><TfiReload /></span>
 
@@ -165,7 +189,7 @@ export default function MainSection() {
 
         <div
           ref={AnimatedDiv}
-          style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, animationPlayState: playSeeWhyAnimation ? 'running' : 'paused' }}
+          style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${fisrtColumnWidth}%`, animationPlayState: playSeeWhyAnimation ? 'running' : 'paused' }}
           className={styles.seeWhyAnimation + ` bg-top`} />
 
         <button
@@ -177,9 +201,19 @@ export default function MainSection() {
 
       </div>
 
-      <div className=' flex justify-center bg-blue-500 items-cente h-screen w-2/3 p-3'>
+      <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
-        <button onClick={() => setshowCurriculumProjectsModal(true)}>freeCodeCamp<br />Curriculum Projects</button>
+      <div style={{ width: `${100 - fisrtColumnWidth}%` }} className=' flex justify-center items-center bg-blue-500 items-cente h-screen p-8'>
+
+        <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-full'>
+
+          <motion.div drag dragElastic={0.2} dragConstraints={constraintsRef} whileDrag={{ scale: 1.2 }} className='w-8 h-8 bg-red-500' />
+
+          <motion.div drag dragElastic={0.2} dragConstraints={constraintsRef} whileDrag={{ scale: 1.2 }} className='w-8 h-8 bg-green-500' />
+
+        </motion.div>
+
+        {/* <button onClick={() => setshowCurriculumProjectsModal(true)}>freeCodeCamp<br />Curriculum Projects</button> */}
 
       </div>
 
