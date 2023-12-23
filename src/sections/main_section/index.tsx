@@ -44,6 +44,8 @@ export default function MainSection() {
   const [secretProjectOffsetX, setsecretProjectOffsetX] = useState<number>(0);
   const [secretProjectOffsetY, setsecretProjectOffsetY] = useState<number>(0);
 
+  const [projectDivBgHslHColors, setprojectDivBgHslHColors] = useState<Array<number>>([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
+
   const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
   const [showProfileModal, setshowProfileModal] = useState(false);
   const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
@@ -73,6 +75,31 @@ export default function MainSection() {
     return () => clearTimeout(seeWhyBgCounterTimeout);
 
   }, [seeWhyBgCounter]);
+
+  // // Efeito de mover o plano de fundo da div de projetos.
+  // useEffect(function () {
+
+  //   const projectsDivBgCounterTimeout = setTimeout(function () {
+
+  //     if (projectsDivBgCounter > 100) {
+
+  //       setprojectsDivBgCounterDirection(-0.1);
+
+  //     } else if (projectsDivBgCounter < 0) {
+
+  //       setprojectsDivBgCounterDirection(0.1);
+
+  //     }
+
+  //     setprojectsDivBgCounter((oldState) => oldState + projectsDivBgCounterDirection)
+
+  //   }, 10);
+
+  //   console.log(projectsDivBgCounter)
+
+  //   return () => clearTimeout(projectsDivBgCounterTimeout);
+
+  // }, [projectsDivBgCounter]);
 
   useEffect(function () {
 
@@ -173,12 +200,6 @@ export default function MainSection() {
     }
 
     setbackgroundIndex(randomNumber);
-
-  }
-
-  function getRandomBackgroundIndex() {
-
-    return Math.round(Math.random() * (backgroundImages.length - 1));
 
   }
 
@@ -299,6 +320,32 @@ export default function MainSection() {
 
   }
 
+  function handleChangeProjectsDivBgColors(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+
+    if (constraintsRef.current) {
+
+      if ((constraintsRef.current as HTMLDivElement).isEqualNode(e.target as HTMLElement)) {
+
+        setprojectDivBgHslHColors([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
+
+      }
+
+    }
+
+  }
+
+  function getRandomBackgroundIndex() {
+
+    return Math.round(Math.random() * (backgroundImages.length - 1));
+
+  }
+
+  function getRandomHslColorH() {
+
+    return Math.round(Math.random() * 360);
+
+  }
+
   return (
 
     <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
@@ -343,9 +390,12 @@ export default function MainSection() {
 
       <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
-      <div style={{ width: `${100 - fisrtColumnWidth}%` }} className=' flex justify-center items-center bg-blue-500 items-cente h-screen p-8'>
+      <div
+        style={{ width: `${100 - fisrtColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
+        className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
+        onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
-        <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-full'>
+        <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : 'skyblue' }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
           <motion.button ref={SecretProject} type='button' onMouseEnter={(e) => handleSecretProject(e)} onMouseOver={(e) => handleSecretProject(e)} onMouseLeave={(e) => handleSecretProject(e)} onMouseOut={(e) => handleSecretProject(e)} className='fixed w-40 h-24 bg-black z-50 transition-all ease-out duration-100'></motion.button>
 
