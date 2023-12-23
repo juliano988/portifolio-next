@@ -15,10 +15,12 @@ import bg3 from './main_background/3.jpeg';
 import bg4 from './main_background/4.jpeg';
 import { StaticImageData } from 'next/image';
 import { motion } from 'framer-motion';
+import { SlowBuffer } from 'buffer';
 
 export default function MainSection() {
 
   const AnimatedDiv = useRef<HTMLDivElement>(null);
+  const SecretProject = useRef<HTMLButtonElement>(null);
   const constraintsRef = useRef(null);
 
   const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4]);
@@ -37,8 +39,10 @@ export default function MainSection() {
   const [playSeeWhyAnimation, setplaySeeWhyAnimation] = useState<boolean>(false);
 
   const [fisrtColumnWidth, setfisrtColumnWidth] = useState<number>(33);
-
   const [movingMiddleBar, setmovingMiddleBar] = useState<boolean>(false);
+
+  const [secretProjectOffsetX, setsecretProjectOffsetX] = useState<number>(0);
+  const [secretProjectOffsetY, setsecretProjectOffsetY] = useState<number>(0);
 
   const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
   const [showProfileModal, setshowProfileModal] = useState(false);
@@ -47,6 +51,7 @@ export default function MainSection() {
 
   const setselectedSection = useContext(SelectedSectionContext);
 
+  // Efeito de mover a imagem do botão 'See why'
   useEffect(function () {
 
     const seeWhyBgCounterTimeout = setTimeout(function () {
@@ -98,6 +103,42 @@ export default function MainSection() {
       }
 
     })
+
+  }, []);
+
+  // Efeito de posicionar os botões do projeto aleatoriamente ao inciar a aplicação.
+  useEffect(function () {
+
+    if (constraintsRef.current && SecretProject.current) {
+
+      const projectButtons = Array.from((constraintsRef.current as HTMLDivElement).children);
+
+      projectButtons.forEach(function (projectButton, i) {
+
+        const randomMarginBottom = (Math.random() - 0.5) * window.innerHeight;
+        const randomMarginLeft = (Math.random() - 0.5) * window.innerHeight;
+
+        // No caso do projeto misterioso, a sua margem é alterada através de estados.
+        if (i == 0) {
+
+          const secretProjectButton = SecretProject.current as HTMLButtonElement;
+
+          secretProjectButton.style.marginBottom = randomMarginBottom + 'px';
+          secretProjectButton.style.marginLeft = randomMarginLeft + 'px';
+
+          setsecretProjectOffsetX(randomMarginLeft);
+          setsecretProjectOffsetY(randomMarginBottom);
+
+        } else {
+
+          (projectButton as HTMLElement).style.marginBottom = randomMarginBottom + 'px';
+          (projectButton as HTMLElement).style.marginLeft = randomMarginLeft + 'px';
+
+        }
+
+      })
+
+    }
 
   }, []);
 
@@ -159,6 +200,105 @@ export default function MainSection() {
 
   }
 
+  function handleSecretProject(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+
+    if (SecretProject.current) {
+
+      const button = SecretProject.current as HTMLButtonElement;
+
+      const moveSpeed = 100;
+
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const buttonLeft = button.offsetLeft;
+      const buttonRight = button.offsetLeft + button.offsetWidth;
+      const buttonTop = button.offsetTop;
+      const buttonBottom = button.offsetTop + button.offsetHeight;
+
+      const up = (buttonTop - button.offsetHeight / 2) <= mouseY && (buttonTop + 20) >= mouseY;
+      const right = (buttonRight - button.offsetWidth / 2) <= mouseX && (buttonRight + 20) >= mouseX;
+      const down = (buttonBottom - button.offsetHeight / 2) <= mouseY && (buttonBottom + 20) >= mouseY;
+      const left = (buttonLeft - button.offsetWidth / 2) <= mouseX && (buttonLeft + 20) >= mouseX;
+
+      if (up && right) {
+
+        console.log('up-right');
+
+        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+
+      } else if (down && right) {
+
+        console.log('down-right');
+
+        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+
+      } else if (down && left) {
+
+        console.log('down-left');
+
+        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
+
+      } else if (up && left) {
+
+        console.log('up-left');
+
+        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
+
+      } else if (up) {
+
+        console.log('up')
+
+        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+
+      } else if (right) {
+
+        console.log('right')
+
+        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+
+        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+
+      } else if (down) {
+
+        console.log('down')
+
+        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+
+        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+
+      } else if (left) {
+
+        console.log('left');
+
+        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
+
+        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
+
+      }
+
+    }
+
+  }
+
   return (
 
     <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
@@ -206,6 +346,8 @@ export default function MainSection() {
       <div style={{ width: `${100 - fisrtColumnWidth}%` }} className=' flex justify-center items-center bg-blue-500 items-cente h-screen p-8'>
 
         <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-full'>
+
+          <motion.button ref={SecretProject} type='button' onMouseEnter={(e) => handleSecretProject(e)} onMouseOver={(e) => handleSecretProject(e)} onMouseLeave={(e) => handleSecretProject(e)} onMouseOut={(e) => handleSecretProject(e)} className='fixed w-40 h-24 bg-black z-50 transition-all ease-out duration-100'></motion.button>
 
           <motion.div drag dragElastic={0.2} dragConstraints={constraintsRef} whileDrag={{ scale: 1.2 }} className='w-8 h-8 bg-red-500' />
 
