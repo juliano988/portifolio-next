@@ -62,6 +62,31 @@
 
 }
 
+.secretProjectScape {
+  animation-name: secretProjectScapeAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes secretProjectScapeAnimation {
+
+  0% {
+    rotate: 0deg;
+  }
+
+  33% {
+    rotate: 10deg;
+  }
+
+  66% {
+    rotate: -10deg;
+  }
+
+  100% {
+    rotate: 0deg;
+  }
+
+}
+
 // ----------------------
 
 .bg_video {

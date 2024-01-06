@@ -1,6 +1,6 @@
 import styles from '../../styles/sections/main_section/index_styles.module.scss';
 import { Button } from 'react-bootstrap';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { RefObject, useContext, useEffect, useRef, useState } from 'react';
 import ProfileModal from './ProfileModal';
 import CurriculumProjectsModal from './CurriculumProjectsModal';
 import SelectedSectionContext from '../../app/context/SelectedSectionContext';
@@ -8,18 +8,21 @@ import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 import TakeHomeProjects from '../fcc_THP';
 import { TfiReload } from "react-icons/tfi";
 import { FaCircleInfo } from "react-icons/fa6";
-import bg0 from './main_background/0.jpeg';
-import bg1 from './main_background/1.jpeg';
-import bg2 from './main_background/2.jpeg';
-import bg3 from './main_background/3.jpeg';
-import bg4 from './main_background/4.jpeg';
+import bg0 from './main_background_images/0.jpeg';
+import bg1 from './main_background_images/1.jpeg';
+import bg2 from './main_background_images/2.jpeg';
+import bg3 from './main_background_images/3.jpeg';
+import bg4 from './main_background_images/4.jpeg';
 import { StaticImageData } from 'next/image';
-import { motion } from 'framer-motion';
+import { BoundingBox, motion } from 'framer-motion';
 import { SlowBuffer } from 'buffer';
+import ProjectButton from './components/ProjectButton';
+import SecretProjectButton from './components/SecretProjectButton';
 
 export default function MainSection() {
 
   const AnimatedDiv = useRef<HTMLDivElement>(null);
+  const ProjectsDiv = useRef<HTMLDivElement>(null);
   const SecretProject = useRef<HTMLButtonElement>(null);
   const constraintsRef = useRef(null);
 
@@ -47,7 +50,6 @@ export default function MainSection() {
   const [projectDivBgHslHColorsDefault, setprojectDivBgHslHColorsDefault] = useState(getRandomHslColorH());
   const [projectDivBgHslHColors, setprojectDivBgHslHColors] = useState<Array<number>>([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
 
-  const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
   const [showProfileModal, setshowProfileModal] = useState(false);
   const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
   const [showDevelopmentChallengesModal, setshowDevelopmentChallengesModal] = useState(false);
@@ -77,45 +79,16 @@ export default function MainSection() {
 
   }, [seeWhyBgCounter]);
 
-
-  useEffect(function () {
-
-    if (window.innerWidth <= 575.98) {
-
-      setshowBgVideo(false);
-
-    } else {
-
-      setshowBgVideo(true);
-
-    }
-
-  }, []);
-
-  useEffect(function () {
-
-    window.addEventListener('resize', function () {
-
-      if (window.innerWidth <= 575.98) {
-
-        setshowBgVideo(false);
-
-      } else {
-
-        setshowBgVideo(true);
-
-      }
-
-    })
-
-  }, []);
-
   // Efeito de posicionar os botões do projeto aleatoriamente ao inciar a aplicação.
   useEffect(function () {
 
-    placeProjectButtons();
+    if (ProjectsDiv.current && constraintsRef.current, SecretProject.current) {
 
-  }, []);
+      placeProjectButtons();
+
+    }
+
+  }, [ProjectsDiv.current, constraintsRef.current, SecretProject.current]);
 
   function handleClickButtons(secId: string) {
 
@@ -177,119 +150,118 @@ export default function MainSection() {
 
   function placeProjectButtons() {
 
-    if (constraintsRef.current && SecretProject.current) {
+    const projectButtons = Array.from((ProjectsDiv.current as HTMLDivElement).children[0].children);
 
-      const projectButtons = Array.from((constraintsRef.current as HTMLDivElement).children);
+    projectButtons.forEach(function (projectButton, i) {
 
-      projectButtons.forEach(function (projectButton, i) {
+      const randomMarginBottom = (Math.random() - 0.5) * window.innerHeight;
+      const randomMarginLeft = (Math.random() - 0.5) * window.innerHeight;
 
-        const randomMarginBottom = (Math.random() - 0.5) * window.innerHeight;
-        const randomMarginLeft = (Math.random() - 0.5) * window.innerHeight;
+      // No caso do projeto misterioso, a sua margem é alterada através de estados.
+      if (projectButton.isEqualNode(SecretProject.current)) {
 
-        // No caso do projeto misterioso, a sua margem é alterada através de estados.
-        if (i == 0) {
+        const secretProjectButton = SecretProject.current as HTMLButtonElement;
 
-          const secretProjectButton = SecretProject.current as HTMLButtonElement;
+        secretProjectButton.style.marginBottom = randomMarginBottom + 'px';
+        secretProjectButton.style.marginLeft = randomMarginLeft + 'px';
 
-          secretProjectButton.style.marginBottom = randomMarginBottom + 'px';
-          secretProjectButton.style.marginLeft = randomMarginLeft + 'px';
+        setsecretProjectOffsetX(randomMarginLeft);
+        setsecretProjectOffsetY(randomMarginBottom);
 
-          setsecretProjectOffsetX(randomMarginLeft);
-          setsecretProjectOffsetY(randomMarginBottom);
+      } else {
 
-        } else {
+        (projectButton as HTMLElement).style.marginBottom = randomMarginBottom + 'px';
+        (projectButton as HTMLElement).style.marginLeft = randomMarginLeft + 'px';
 
-          (projectButton as HTMLElement).style.marginBottom = randomMarginBottom + 'px';
-          (projectButton as HTMLElement).style.marginLeft = randomMarginLeft + 'px';
+      }
 
-        }
-
-      })
-
-    }
+    })
 
   }
 
   function handleSecretProject(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
-    if (SecretProject.current) {
+    const button = SecretProject.current as HTMLButtonElement;
 
-      const button = SecretProject.current as HTMLButtonElement;
+    const moveSpeed = 150;
 
-      const moveSpeed = 150;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+    const buttonLeft = button.offsetLeft;
+    const buttonRight = button.offsetLeft + button.offsetWidth;
+    const buttonTop = button.offsetTop;
+    const buttonBottom = button.offsetTop + button.offsetHeight;
 
-      const buttonLeft = button.offsetLeft;
-      const buttonRight = button.offsetLeft + button.offsetWidth;
-      const buttonTop = button.offsetTop;
-      const buttonBottom = button.offsetTop + button.offsetHeight;
+    const up = (buttonTop - button.offsetHeight / 2) <= mouseY && (buttonTop + 20) >= mouseY;
+    const right = (buttonRight - button.offsetWidth / 2) <= mouseX && (buttonRight + 20) >= mouseX;
+    const down = (buttonBottom - button.offsetHeight / 2) <= mouseY && (buttonBottom + 20) >= mouseY;
+    const left = (buttonLeft - button.offsetWidth / 2) <= mouseX && (buttonLeft + 20) >= mouseX;
 
-      const up = (buttonTop - button.offsetHeight / 2) <= mouseY && (buttonTop + 20) >= mouseY;
-      const right = (buttonRight - button.offsetWidth / 2) <= mouseX && (buttonRight + 20) >= mouseX;
-      const down = (buttonBottom - button.offsetHeight / 2) <= mouseY && (buttonBottom + 20) >= mouseY;
-      const left = (buttonLeft - button.offsetWidth / 2) <= mouseX && (buttonLeft + 20) >= mouseX;
+    if (up && right) {
 
-      if (up && right) {
+      button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+      button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
-        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+      setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
-        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+    } else if (down && right) {
 
-      } else if (down && right) {
+      button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+      button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
-        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+      setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
-        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+    } else if (down && left) {
 
-      } else if (down && left) {
+      button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+      button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
-        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+      setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
-        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
+    } else if (up && left) {
 
-      } else if (up && left) {
+      button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+      button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
-        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+      setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
-        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
+    } else if (up) {
 
-      } else if (up) {
+      button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
+    } else if (right) {
 
-      } else if (right) {
+      button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
 
-        button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
+      setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
 
-        setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
+    } else if (down) {
 
-      } else if (down) {
+      button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
 
-        button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
+      setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
 
-        setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
+    } else if (left) {
 
-      } else if (left) {
+      button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
 
-        button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
-
-        setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
-
-      }
+      setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
 
     }
+
+    // Insere animação de colisão no projeto secreto.
+    button.classList.remove(styles.secretProjectScape);
+
+    setTimeout(function () {
+      button.classList.add(styles.secretProjectScape);
+    }, 1);
 
   }
 
@@ -367,21 +339,37 @@ export default function MainSection() {
       <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
       <div
+        ref={ProjectsDiv}
         style={{ width: `${100 - fisrtColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
         className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
         onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
         <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
-          <motion.button ref={SecretProject} type='button' onMouseEnter={(e) => handleSecretProject(e)} onMouseOver={(e) => handleSecretProject(e)} onMouseLeave={(e) => handleSecretProject(e)} onMouseOut={(e) => handleSecretProject(e)} className='fixed w-40 h-24 bg-black z-50 transition-all ease-out duration-100'></motion.button>
+          <SecretProjectButton
+            ref={SecretProject}
+            onMouseEnter={(e) => handleSecretProject(e)}
+            onMouseOver={(e) => handleSecretProject(e)}
+            onMouseLeave={(e) => handleSecretProject(e)}
+            onMouseOut={(e) => handleSecretProject(e)} />
 
-          <motion.div drag dragElastic={0.2} dragConstraints={constraintsRef} whileDrag={{ scale: 1.2 }} className='w-8 h-8 bg-red-500' />
+          <ProjectButton
+            dragConstraints={constraintsRef}
+            textColor='black'
+            backgroundColorAngle={28}
+            title='Curriculum Projects'
+            subtitle='freeCodeCamp'
+            date='2020-2021' />
 
-          <motion.div drag dragElastic={0.2} dragConstraints={constraintsRef} whileDrag={{ scale: 1.2 }} className='w-8 h-8 bg-green-500' />
+          <ProjectButton
+            dragConstraints={constraintsRef}
+            textColor='whitesmoke'
+            backgroundColorAngle={247}
+            title='Challenges'
+            subtitle='Job applications'
+            date='2021' />
 
         </motion.div>
-
-        {/* <button onClick={() => setshowCurriculumProjectsModal(true)}>freeCodeCamp<br />Curriculum Projects</button> */}
 
       </div>
 
