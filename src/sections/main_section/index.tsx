@@ -44,6 +44,7 @@ export default function MainSection() {
   const [secretProjectOffsetX, setsecretProjectOffsetX] = useState<number>(0);
   const [secretProjectOffsetY, setsecretProjectOffsetY] = useState<number>(0);
 
+  const [projectDivBgHslHColorsDefault, setprojectDivBgHslHColorsDefault] = useState(getRandomHslColorH());
   const [projectDivBgHslHColors, setprojectDivBgHslHColors] = useState<Array<number>>([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
 
   const [showBgVideo, setshowBgVideo] = useState<boolean>(false)
@@ -76,30 +77,6 @@ export default function MainSection() {
 
   }, [seeWhyBgCounter]);
 
-  // // Efeito de mover o plano de fundo da div de projetos.
-  // useEffect(function () {
-
-  //   const projectsDivBgCounterTimeout = setTimeout(function () {
-
-  //     if (projectsDivBgCounter > 100) {
-
-  //       setprojectsDivBgCounterDirection(-0.1);
-
-  //     } else if (projectsDivBgCounter < 0) {
-
-  //       setprojectsDivBgCounterDirection(0.1);
-
-  //     }
-
-  //     setprojectsDivBgCounter((oldState) => oldState + projectsDivBgCounterDirection)
-
-  //   }, 10);
-
-  //   console.log(projectsDivBgCounter)
-
-  //   return () => clearTimeout(projectsDivBgCounterTimeout);
-
-  // }, [projectsDivBgCounter]);
 
   useEffect(function () {
 
@@ -136,6 +113,70 @@ export default function MainSection() {
   // Efeito de posicionar os botões do projeto aleatoriamente ao inciar a aplicação.
   useEffect(function () {
 
+    placeProjectButtons();
+
+  }, []);
+
+  function handleClickButtons(secId: string) {
+
+    switch (secId) {
+
+      case '#fcc_THP': setselectedSection(<TakeHomeProjects />); break;
+
+      default: break;
+
+    }
+
+    setTimeout(() => window.location.href = secId, 500);
+
+  }
+
+  function resetPage() {
+
+    let randomNumber = backgroundIndex;
+
+    setplaySeeWhyAnimation(false);
+
+    AnimatedDiv.current?.classList.remove(styles.seeWhyAnimation);
+
+    setTimeout(function () {
+      AnimatedDiv.current?.classList.add(styles.seeWhyAnimation);
+    }, 1);
+
+    while (randomNumber === backgroundIndex) {
+      randomNumber = getRandomBackgroundIndex();
+    }
+
+    setbackgroundIndex(randomNumber);
+
+    setfisrtColumnWidth(33);
+
+    setprojectDivBgHslHColorsDefault(getRandomHslColorH());
+
+    placeProjectButtons();
+
+  }
+
+  function handleMovingMiddleBar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+
+    e.preventDefault();
+
+    const firstColumnWidth = (e.clientX / window.innerWidth) * 100;
+
+    if (movingMiddleBar) {
+
+      if (firstColumnWidth >= 30 && firstColumnWidth <= 70) {
+
+        setfisrtColumnWidth(firstColumnWidth);
+
+      }
+
+    }
+
+  }
+
+  function placeProjectButtons() {
+
     if (constraintsRef.current && SecretProject.current) {
 
       const projectButtons = Array.from((constraintsRef.current as HTMLDivElement).children);
@@ -167,58 +208,6 @@ export default function MainSection() {
 
     }
 
-  }, []);
-
-  function handleClickButtons(secId: string) {
-
-    switch (secId) {
-
-      case '#fcc_THP': setselectedSection(<TakeHomeProjects />); break;
-
-      default: break;
-
-    }
-
-    setTimeout(() => window.location.href = secId, 500);
-
-  }
-
-  function resetAnimation() {
-
-    let randomNumber = backgroundIndex;
-
-    setplaySeeWhyAnimation(false);
-
-    AnimatedDiv.current?.classList.remove(styles.seeWhyAnimation);
-
-    setTimeout(function () {
-      AnimatedDiv.current?.classList.add(styles.seeWhyAnimation);
-    }, 1);
-
-    while (randomNumber === backgroundIndex) {
-      randomNumber = getRandomBackgroundIndex();
-    }
-
-    setbackgroundIndex(randomNumber);
-
-  }
-
-  function handleMovingMiddleBar(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-
-    e.preventDefault();
-
-    const firstColumnWidth = (e.clientX / window.innerWidth) * 100;
-
-    if (movingMiddleBar) {
-
-      if (firstColumnWidth >= 30 && firstColumnWidth <= 70) {
-
-        setfisrtColumnWidth(firstColumnWidth);
-
-      }
-
-    }
-
   }
 
   function handleSecretProject(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -227,7 +216,7 @@ export default function MainSection() {
 
       const button = SecretProject.current as HTMLButtonElement;
 
-      const moveSpeed = 100;
+      const moveSpeed = 150;
 
       const mouseX = e.clientX;
       const mouseY = e.clientY;
@@ -244,8 +233,6 @@ export default function MainSection() {
 
       if (up && right) {
 
-        console.log('up-right');
-
         button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
         button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
 
@@ -253,8 +240,6 @@ export default function MainSection() {
         setsecretProjectOffsetX(secretProjectOffsetX - moveSpeed);
 
       } else if (down && right) {
-
-        console.log('down-right');
 
         button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
         button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
@@ -264,8 +249,6 @@ export default function MainSection() {
 
       } else if (down && left) {
 
-        console.log('down-left');
-
         button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
         button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
 
@@ -273,8 +256,6 @@ export default function MainSection() {
         setsecretProjectOffsetX(secretProjectOffsetX + moveSpeed);
 
       } else if (up && left) {
-
-        console.log('up-left');
 
         button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
         button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
@@ -284,15 +265,11 @@ export default function MainSection() {
 
       } else if (up) {
 
-        console.log('up')
-
         button.style.marginBottom = `${secretProjectOffsetY - moveSpeed}px`;
 
         setsecretProjectOffsetY(secretProjectOffsetY - moveSpeed);
 
       } else if (right) {
-
-        console.log('right')
 
         button.style.marginLeft = `${secretProjectOffsetX - moveSpeed}px`;
 
@@ -300,15 +277,11 @@ export default function MainSection() {
 
       } else if (down) {
 
-        console.log('down')
-
         button.style.marginBottom = `${secretProjectOffsetY + moveSpeed}px`;
 
         setsecretProjectOffsetY(secretProjectOffsetY + moveSpeed);
 
       } else if (left) {
-
-        console.log('left');
 
         button.style.marginLeft = `${secretProjectOffsetX + moveSpeed}px`;
 
@@ -326,7 +299,10 @@ export default function MainSection() {
 
       if ((constraintsRef.current as HTMLDivElement).isEqualNode(e.target as HTMLElement)) {
 
-        setprojectDivBgHslHColors([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
+        const colorOffsetAngle = 120;
+        const baseColor = getRandomHslColorH();
+
+        setprojectDivBgHslHColors([(baseColor + colorOffsetAngle * 0) % 360, (baseColor + colorOffsetAngle * 1) % 360, (baseColor + colorOffsetAngle * 2) % 360]);
 
       }
 
@@ -352,7 +328,7 @@ export default function MainSection() {
 
       <div style={{ width: `${fisrtColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen'>
 
-        <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetAnimation()}><TfiReload /></span>
+        <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
         <div className='flex gap-4 absolute top-10 left-2 z-20'>
 
@@ -382,7 +358,7 @@ export default function MainSection() {
         <button
           onClick={() => setplaySeeWhyAnimation(true)}
           style={{ position: 'fixed', bottom: '25vh' }}
-          className={`text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]`}>
+          className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
           See why ⮞
         </button>
 
@@ -395,7 +371,7 @@ export default function MainSection() {
         className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
         onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
-        <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : 'skyblue' }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
+        <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
           <motion.button ref={SecretProject} type='button' onMouseEnter={(e) => handleSecretProject(e)} onMouseOver={(e) => handleSecretProject(e)} onMouseLeave={(e) => handleSecretProject(e)} onMouseOut={(e) => handleSecretProject(e)} className='fixed w-40 h-24 bg-black z-50 transition-all ease-out duration-100'></motion.button>
 

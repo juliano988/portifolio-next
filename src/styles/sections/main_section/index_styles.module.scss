@@ -33,6 +33,12 @@
 
 }
 
+.hideSeeWhy {
+  opacity: 0;
+  cursor: default !important;
+  transition: 2s;
+}
+
 .moveProjectsBg {
   background-position: 0% 0%;
   animation-name: moveProjectsDivBgAnimation;
