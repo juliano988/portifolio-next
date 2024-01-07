@@ -2,8 +2,6 @@ import React, { ButtonHTMLAttributes, forwardRef, useState } from "react";
 
 const SecretProjectButton = forwardRef(function (props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, ref) {
 
-
-
   return (
 
     <button

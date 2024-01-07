@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.scss';
 import '../styles/iframe_globals.scss';
-import '../styles/modal_globals.scss';
 import { Metadata } from 'next';
 
 export default function RootLayout({

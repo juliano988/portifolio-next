@@ -8,11 +8,11 @@ import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 import TakeHomeProjects from '../fcc_THP';
 import { TfiReload } from "react-icons/tfi";
 import { FaCircleInfo } from "react-icons/fa6";
-import bg0 from './main_background_images/0.jpeg';
-import bg1 from './main_background_images/1.jpeg';
-import bg2 from './main_background_images/2.jpeg';
-import bg3 from './main_background_images/3.jpeg';
-import bg4 from './main_background_images/4.jpeg';
+import bg0 from './images/background/0.jpeg';
+import bg1 from './images/background/1.jpeg';
+import bg2 from './images/background/2.jpeg';
+import bg3 from './images/background/3.jpeg';
+import bg4 from './images/background/4.jpeg';
 import { StaticImageData } from 'next/image';
 import { BoundingBox, motion } from 'framer-motion';
 import { SlowBuffer } from 'buffer';
@@ -296,86 +296,93 @@ export default function MainSection() {
 
   return (
 
-    <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
+    <>
 
-      <div style={{ width: `${fisrtColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen'>
+      <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
 
-        <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
+        <div style={{ width: `${fisrtColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
 
-        <div className='flex gap-4 absolute top-10 left-2 z-20'>
+          <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
-          <FaCircleInfo className='text-white text-xl cursor-help peer [text-shadow:_3px_3px_20px_#575757]' />
+          <div className='flex gap-4 absolute top-10 left-2 z-20'>
 
-          <div className='bg-white p-2 rounded-sm max-w-[25vw] scale-0 opacity-0 transition-opacity duration-500 peer-hover:scale-100 peer-hover:opacity-100'>
-            {backgroundDescriptions[backgroundIndex]}
+            <FaCircleInfo className='text-white text-xl cursor-help peer [text-shadow:_3px_3px_20px_#575757]' />
+
+            <div className='bg-white p-2 rounded-sm max-w-[25vw] scale-0 opacity-0 transition-opacity duration-500 peer-hover:scale-100 peer-hover:opacity-100'>
+              {backgroundDescriptions[backgroundIndex]}
+            </div>
+
           </div>
+
+          <h1
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            onClick={() => setshowProfileModal(true)}>
+            <a>Júlio<br />Faria</a>
+          </h1>
+
+          <h4
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-2xl'}>
+            A <span className='font-bold'>master</span> of JavaScript
+          </h4>
+
+          <div
+            ref={AnimatedDiv}
+            style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${fisrtColumnWidth}%`, animationPlayState: playSeeWhyAnimation ? 'running' : 'paused' }}
+            className={styles.seeWhyAnimation + ` bg-top`} />
+
+          <button
+            onClick={() => setplaySeeWhyAnimation(true)}
+            style={{ position: 'fixed', bottom: '25vh' }}
+            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
+            See why ⮞
+          </button>
 
         </div>
 
-        <h1
-          className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold'}>
-          Júlio<br />Faria
-        </h1>
-
-        <h4
-          className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-2xl'}>
-          A <span className='font-bold'>master</span> of JavaScript
-        </h4>
+        <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
         <div
-          ref={AnimatedDiv}
-          style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${fisrtColumnWidth}%`, animationPlayState: playSeeWhyAnimation ? 'running' : 'paused' }}
-          className={styles.seeWhyAnimation + ` bg-top`} />
+          ref={ProjectsDiv}
+          style={{ width: `${100 - fisrtColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
+          className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
+          onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
-        <button
-          onClick={() => setplaySeeWhyAnimation(true)}
-          style={{ position: 'fixed', bottom: '25vh' }}
-          className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
-          See why ⮞
-        </button>
+          <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
-      </div>
+            <SecretProjectButton
+              ref={SecretProject}
+              onMouseEnter={(e) => handleSecretProject(e)}
+              onMouseOver={(e) => handleSecretProject(e)}
+              onMouseLeave={(e) => handleSecretProject(e)}
+              onMouseOut={(e) => handleSecretProject(e)} />
 
-      <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
+            <ProjectButton
+              dragConstraints={constraintsRef}
+              textColor='black'
+              backgroundColorAngle={28}
+              title='Curriculum Projects'
+              subtitle='freeCodeCamp'
+              date='2020-2021' />
 
-      <div
-        ref={ProjectsDiv}
-        style={{ width: `${100 - fisrtColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
-        className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
-        onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
+            <ProjectButton
+              dragConstraints={constraintsRef}
+              textColor='whitesmoke'
+              backgroundColorAngle={247}
+              title='Challenges'
+              subtitle='Job applications'
+              date='2021' />
 
-        <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
+          </motion.div>
 
-          <SecretProjectButton
-            ref={SecretProject}
-            onMouseEnter={(e) => handleSecretProject(e)}
-            onMouseOver={(e) => handleSecretProject(e)}
-            onMouseLeave={(e) => handleSecretProject(e)}
-            onMouseOut={(e) => handleSecretProject(e)} />
+        </div>
 
-          <ProjectButton
-            dragConstraints={constraintsRef}
-            textColor='black'
-            backgroundColorAngle={28}
-            title='Curriculum Projects'
-            subtitle='freeCodeCamp'
-            date='2020-2021' />
-
-          <ProjectButton
-            dragConstraints={constraintsRef}
-            textColor='whitesmoke'
-            backgroundColorAngle={247}
-            title='Challenges'
-            subtitle='Job applications'
-            date='2021' />
-
-        </motion.div>
-
-      </div>
+        <ProfileModal state={showProfileModal} setState={setshowProfileModal} />
 
 
 
-      {/* {showBgVideo &&
+
+
+        {/* {showBgVideo &&
         <video className={styles.bg_video} autoPlay muted loop>
           <source src="imgs/bgs/bg.mp4" type="video/mp4" />
         </video>}
@@ -412,7 +419,9 @@ export default function MainSection() {
 
       </div> */}
 
-    </section>
+      </section >
+
+    </>
 
   )
 
