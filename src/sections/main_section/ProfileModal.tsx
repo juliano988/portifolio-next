@@ -1,6 +1,5 @@
 import { Badge, Button, Media, Modal } from 'react-bootstrap';
 import React, { Children, useEffect } from 'react';
-import styles from '../../styles/sections/main_section/profile_modal_styles.module.scss'
 import Tippy from '@tippyjs/react';
 import imXr from './images/companies/imxr.jpeg';
 import kornerz from './images/companies/kernerz.jpeg';
@@ -23,6 +22,8 @@ import redux from './images/tools/redux.png';
 import sass from './images/tools/sass.png';
 import typeScript from './images/tools/typescript.png';
 import playcanvas from './images/tools/playcanvas.png';
+import jenkins from './images/tools/jenkins.png';
+import elektron from './images/tools/elektron.webp';
 import 'tippy.js/dist/tippy.css';
 import { followCursor } from 'tippy.js';
 import 'tippy.js/animations/shift-toward.css';
@@ -46,9 +47,9 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         <h5 className='text-2xl font-semibold'>Professional Profile</h5>
 
         <p>
-          I graduated as a <b>Computer Technician</b> from <a href="https://www.cotemig.com.br/" target="_blank">COTEMIG</a> in 2013
-          and in <b>Electronic and Telecommunications Engineering</b> from <a href="https://www.pucminas.br/" target="_blank">PUC Minas</a> in 2020.
-          In the same year, I started my studies in <b>Full Stack Web Development</b> through the <a href="https://www.freecodecamp.org/news/about/" target="_blank">freeCodeCamp</a> community, and in 2022 I specialized in the same area from PUC Minas.
+          I graduated as a <b>Computer Technician</b> from <a className='text-blue-600' href="https://www.cotemig.com.br/" target="_blank">COTEMIG</a> in 2013
+          and in <b>Electronic and Telecommunications Engineering</b> from <a className='text-blue-600' href="https://www.pucminas.br/" target="_blank">PUC Minas</a> in 2020.
+          In the same year, I started my studies in <b>Full Stack Web Development</b> through the <a className='text-blue-600' href="https://www.freecodecamp.org/news/about/" target="_blank">freeCodeCamp</a> community, and in 2022 I specialized in the same area from PUC Minas.
         </p>
 
         <p>
@@ -152,32 +153,32 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         <ul>
 
           <li>
-            <a href="https://www.freecodecamp.org/certification/julio_faria/quality-assurance-v7"
+            <a className='text-blue-600' href="https://www.freecodecamp.org/certification/julio_faria/quality-assurance-v7"
               target="_blank">Quality Assurance <Badge variant="secondary">2021</Badge></a>
           </li>
 
           <li>
-            <a href="https://freecodecamp.org/certification/julio_faria/data-visualization"
+            <a className='text-blue-600' href="https://freecodecamp.org/certification/julio_faria/data-visualization"
               target="_blank">Data Visualization <Badge variant="secondary">2021</Badge></a>
           </li>
 
           <li>
-            <a href="https://www.freecodecamp.org/certification/julio_faria/apis-and-microservices"
+            <a className='text-blue-600' href="https://www.freecodecamp.org/certification/julio_faria/apis-and-microservices"
               target="_blank">APIs and Microservices <Badge variant="secondary">2020</Badge></a>
           </li>
 
           <li>
-            <a href="https://freecodecamp.org/certification/julio_faria/front-end-libraries"
+            <a className='text-blue-600' href="https://freecodecamp.org/certification/julio_faria/front-end-libraries"
               target="_blank">Front End Libraries <Badge variant="secondary">2020</Badge></a>
           </li>
 
           <li>
-            <a href="https://freecodecamp.org/certification/julio_faria/javascript-algorithms-and-data-structures"
+            <a className='text-blue-600' href="https://freecodecamp.org/certification/julio_faria/javascript-algorithms-and-data-structures"
               target="_blank">JavaScript Algorithms and Data Structures <Badge variant="secondary">2020</Badge></a>
           </li>
 
           <li>
-            <a href="https://www.freecodecamp.org/certification/julio_faria/responsive-web-design"
+            <a className='text-blue-600' href="https://www.freecodecamp.org/certification/julio_faria/responsive-web-design"
               target="_blank">Responsive Web Design <Badge variant="secondary">2020</Badge></a>
           </li>
 
@@ -202,14 +203,16 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
           <ToolsTippy content="Next.js" > <Image width={80} height={80} className='m-1 rounded-xl' src={next.src} alt="Next.js" /> </ToolsTippy>
           <ToolsTippy content="Chai" > <Image width={80} height={80} className='m-1 rounded-xl' src={chai.src} alt="Chai" /> </ToolsTippy>
           <ToolsTippy content="PlayCanvas" > <Image width={80} height={80} className='m-1 rounded-xl' src={playcanvas.src} alt="PlayCanvas" /> </ToolsTippy>
+          <ToolsTippy content="Jenkins" > <Image width={80} height={80} className='m-1 rounded-xl' src={jenkins.src} alt="Jenkins" /> </ToolsTippy>
+          <ToolsTippy content="Elektron" > <Image width={80} height={80} className='m-1 rounded-xl' src={elektron.src} alt="Elektron" /> </ToolsTippy>
         </div>
 
         <h5 className='text-2xl font-semibold'>Not satisfied?</h5>
 
         <p>Check out my complete profile on
-          <a href="https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge"
+          <a className='text-blue-600' href="https://br.linkedin.com/in/j%C3%BAlio-faria-144832145?trk=profile-badge"
             target="_blank"> Linkedin!</a><br />
-          And all my projects on <a href="https://github.com/juliano988" target="_blank"> GitHub!</a>
+          And all my projects on <a className='text-blue-600' href="https://github.com/juliano988" target="_blank"> GitHub!</a>
         </p>
 
         <h5 className='text-2xl font-semibold'>Contact me!</h5>
@@ -219,8 +222,8 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
         <p>📧 Email:</p>
 
         <ul>
-          <li><a href="mailto:juliofariaa@gmail.com">juliofariaa@gmail.com</a></li>
-          <li><a href="mailto:julio-pinheiroo@hotmail.com">julio-pinheiroo@hotmail.com</a></li>
+          <li><a className='text-blue-600' href="mailto:juliofariaa@gmail.com">juliofariaa@gmail.com</a></li>
+          <li><a className='text-blue-600' href="mailto:julio-pinheiroo@hotmail.com">julio-pinheiroo@hotmail.com</a></li>
         </ul>
 
       </Modal.Body>

@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { ForwardRefComponent, HTMLMotionProps, motion, useMotionValue, useVelocity } from "framer-motion";
+import { useEffect, useState } from "react";
+
+// React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export default function ProjectButton(props: {
   ref?: React.RefObject<HTMLButtonElement>,
@@ -9,19 +11,41 @@ export default function ProjectButton(props: {
   title: string,
   subtitle: string,
   date: string
-}) {
+  getVelocity?: () => void;
+} & ForwardRefComponent<HTMLButtonElement, HTMLMotionProps<"button">>) {
 
   const [rotationDirection, setrotationDirection] = useState<(-1 | 1)>(Math.random() - 0.5 >= 0 ? 1 : -1);
+
+  const [grabbingTimeOut, setgrabbingTimeOut] = useState<NodeJS.Timeout | null>(null);
+  const [isGrabbing, setisGrabbing] = useState<boolean>(false);
+
+  function handleGrabbing() {
+
+    clearTimeout(grabbingTimeOut as NodeJS.Timeout);
+
+    let tempGrabbingTimeOut: NodeJS.Timeout;
+
+    setisGrabbing(true);
+
+    tempGrabbingTimeOut = setTimeout(function () {
+      setisGrabbing(false);
+    }, 1000);
+
+    setgrabbingTimeOut(tempGrabbingTimeOut);
+
+  }
 
   return (
 
     <motion.button
-      style={{ backgroundColor: `hsl(${props.backgroundColorAngle % 360},80%,50%)` }}
-      className='absolute flex flex-col justify-around items-center w-44 h-28 p-2 !cursor-grab active:cursor-grabbing rounded-lg shadow-2xl'
+      {...props}
+      style={{ backgroundColor: `hsl(${props.backgroundColorAngle % 360},80%,50%)`, cursor: isGrabbing ? 'grabbing' : 'grab' }}
+      className='absolute flex flex-col justify-around items-center w-44 h-28 p-2 rounded-lg shadow-2xl'
       type='button'
       drag
       dragElastic={0.2}
       dragConstraints={props.dragConstraints}
+      onDrag={(e) => handleGrabbing()}
       whileDrag={{ scale: 1.2 }}
       whileHover={{ rotate: 5 * rotationDirection }}>
 

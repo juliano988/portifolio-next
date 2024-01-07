@@ -24,6 +24,7 @@ export default function MainSection() {
   const AnimatedDiv = useRef<HTMLDivElement>(null);
   const ProjectsDiv = useRef<HTMLDivElement>(null);
   const SecretProject = useRef<HTMLButtonElement>(null);
+  const CardHandler = useRef<HTMLDivElement>(null);
   const constraintsRef = useRef(null);
 
   const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4]);
@@ -53,6 +54,13 @@ export default function MainSection() {
   const [showProfileModal, setshowProfileModal] = useState(false);
   const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
   const [showDevelopmentChallengesModal, setshowDevelopmentChallengesModal] = useState(false);
+
+  const [cardHandlerTimeOut, setcardHandlerTimeOut] = useState<NodeJS.Timeout | null>(null);
+  const [cardHandlerTitle, setcardHandlerTitle] = useState('Drop a card here!');
+  const [cardHandlerSubtitle, setcardHandlerSubtitle] = useState('');
+  const [cardHandlerColorHslH, setcardHandlerColorHslH] = useState<number>((projectDivBgHslHColorsDefault + 120) % 360);
+  const [cardHandlerOpeningColor, setcardHandlerOpeningColor] = useState('');
+  const [cardHandlerOpeningTextColor, setcardHandlerOpeningTextColor] = useState('');
 
   const setselectedSection = useContext(SelectedSectionContext);
 
@@ -90,6 +98,58 @@ export default function MainSection() {
 
   }, [ProjectsDiv.current, constraintsRef.current, SecretProject.current]);
 
+  useEffect(function () {
+
+    let updateCardHandlerInterval: NodeJS.Timeout;
+
+    function updateCardHandler() {
+
+      const cardHandler = CardHandler.current as HTMLDivElement;
+
+      const projectButtons = getProjectButtons().filter(function (projectButton) { return !projectButton.isEqualNode(SecretProject.current) });
+
+      projectButtons.forEach(function (projectButton) {
+
+        const projectButtonTranslateYNumber = projectButton.style.transform.match(/(translateY\()([-|\d]\d+.\d+)/) ? Number((projectButton.style.transform.match(/(translateY\()([-|\d]\d+.\d+)/) as RegExpMatchArray)[2]) : 0;
+        const buttonBottom = projectButton.offsetTop + projectButtonTranslateYNumber + projectButton.offsetHeight;
+
+        if (buttonBottom >= cardHandler.offsetTop) {
+
+          const projectTitle = projectButton.children[0].textContent;
+          const projectSubtitle = projectButton.children[1].textContent;
+          const projectColor = projectButton.style.backgroundColor;
+          const projectTextColor = (projectButton.children[0] as HTMLElement).style.color;
+
+          setcardHandlerTitle(`Opening: ${projectTitle}...`);
+          setcardHandlerSubtitle(projectSubtitle || '');
+          setcardHandlerOpeningColor(projectColor);
+          setcardHandlerOpeningTextColor(projectTextColor);
+
+          // Se um dos carões encostar na na barra, a leitura é pausada.
+          clearInterval(updateCardHandlerInterval);
+
+          // Apos 5 segundos, a barra retorna ao estado original e a leitura da barra é reiniciada.
+          setTimeout(function () {
+
+            setcardHandlerTitle('Drop card here!');
+            setcardHandlerSubtitle('');
+            setcardHandlerOpeningColor('');
+            setcardHandlerOpeningTextColor('');
+
+            updateCardHandlerInterval = setInterval(updateCardHandler, 1000);
+
+          }, 5000);
+
+        }
+
+      });
+
+    }
+
+    updateCardHandlerInterval = setInterval(updateCardHandler, 1000);
+
+  }, []);
+
   function handleClickButtons(secId: string) {
 
     switch (secId) {
@@ -124,7 +184,11 @@ export default function MainSection() {
 
     setfisrtColumnWidth(33);
 
-    setprojectDivBgHslHColorsDefault(getRandomHslColorH());
+    const projectDivBgHslHColorsDefault = getRandomHslColorH()
+
+    // Para garantir que as cores das divs sejam diferentes.
+    setprojectDivBgHslHColorsDefault(projectDivBgHslHColorsDefault);
+    setcardHandlerColorHslH((projectDivBgHslHColorsDefault + 120) % 360)
 
     placeProjectButtons();
 
@@ -150,7 +214,7 @@ export default function MainSection() {
 
   function placeProjectButtons() {
 
-    const projectButtons = Array.from((ProjectsDiv.current as HTMLDivElement).children[0].children);
+    const projectButtons = getProjectButtons();
 
     projectButtons.forEach(function (projectButton, i) {
 
@@ -294,6 +358,13 @@ export default function MainSection() {
 
   }
 
+  function getProjectButtons() {
+
+    return Array.from((ProjectsDiv.current as HTMLDivElement).children[0].children)
+      .filter(function (element) { return element.tagName === 'BUTTON' }) as Array<HTMLButtonElement>;
+
+  }
+
   return (
 
     <>
@@ -317,7 +388,7 @@ export default function MainSection() {
           <h1
             className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
-            <a>Júlio<br />Faria</a>
+            Júlio<br />Faria
           </h1>
 
           <h4
@@ -349,6 +420,13 @@ export default function MainSection() {
 
           <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
+            <div
+              ref={CardHandler}
+              style={{ width: `calc(${100 - fisrtColumnWidth}% - 4px)`, backgroundColor: cardHandlerOpeningColor ? cardHandlerOpeningColor : `hsl(${cardHandlerColorHslH},100%,75%)`, color: cardHandlerOpeningTextColor ? cardHandlerOpeningTextColor : '' }} className='absolute bottom-0 flex flex-col justify-center items-center h-16 transition-all duration-1000'>
+              <span className='font-medium'>{cardHandlerTitle}</span>
+              <span className='font-light text-sm'>{cardHandlerSubtitle}</span>
+            </div>
+
             <SecretProjectButton
               ref={SecretProject}
               onMouseEnter={(e) => handleSecretProject(e)}
@@ -356,6 +434,7 @@ export default function MainSection() {
               onMouseLeave={(e) => handleSecretProject(e)}
               onMouseOut={(e) => handleSecretProject(e)} />
 
+            {/* @ts-ignore */}
             <ProjectButton
               dragConstraints={constraintsRef}
               textColor='black'
@@ -364,6 +443,7 @@ export default function MainSection() {
               subtitle='freeCodeCamp'
               date='2020-2021' />
 
+            {/* @ts-ignore */}
             <ProjectButton
               dragConstraints={constraintsRef}
               textColor='whitesmoke'
