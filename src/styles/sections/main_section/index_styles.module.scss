@@ -5,17 +5,19 @@
   text-shadow: 3px 3px 20px #575757;
 }
 
-.seeWhyAnimation {
+.seeWhy {
   position: absolute;
   bottom: 24.8vh;
   width: 150px;
   height: 60px;
   border-radius: 80px;
+}
+
+.seeWhyAnimation {
   animation-name: seeWhyAnimation;
   animation-duration: 2s;
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-play-state: paused;
 }
 
 @keyframes seeWhyAnimation {
@@ -83,6 +85,33 @@
 
   100% {
     rotate: 0deg;
+  }
+
+}
+
+.projectsDivCover {
+  display: block;
+  opacity: 1;
+  animation-name: projectsDivCoverAnimation;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes projectsDivCoverAnimation {
+
+  0% {
+    display: block;
+    opacity: 1;
+  }
+
+  99% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: none;
+    opacity: 0;
   }
 
 }

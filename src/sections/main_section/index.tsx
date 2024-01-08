@@ -42,23 +42,21 @@ export default function MainSection() {
 
   const [playSeeWhyAnimation, setplaySeeWhyAnimation] = useState<boolean>(false);
 
-  const [fisrtColumnWidth, setfisrtColumnWidth] = useState<number>(33);
+  const [firstColumnWidth, setfirstColumnWidth] = useState<number>(33);
   const [movingMiddleBar, setmovingMiddleBar] = useState<boolean>(false);
 
   const [secretProjectOffsetX, setsecretProjectOffsetX] = useState<number>(0);
   const [secretProjectOffsetY, setsecretProjectOffsetY] = useState<number>(0);
 
-  const [projectDivBgHslHColorsDefault, setprojectDivBgHslHColorsDefault] = useState(getRandomHslColorH());
   const [projectDivBgHslHColors, setprojectDivBgHslHColors] = useState<Array<number>>([getRandomHslColorH(), getRandomHslColorH(), getRandomHslColorH()]);
 
   const [showProfileModal, setshowProfileModal] = useState(false);
   const [showCurriculumProjectsModal, setshowCurriculumProjectsModal] = useState(false);
   const [showDevelopmentChallengesModal, setshowDevelopmentChallengesModal] = useState(false);
 
-  const [cardHandlerTimeOut, setcardHandlerTimeOut] = useState<NodeJS.Timeout | null>(null);
   const [cardHandlerTitle, setcardHandlerTitle] = useState('Drop a card here!');
   const [cardHandlerSubtitle, setcardHandlerSubtitle] = useState('');
-  const [cardHandlerColorHslH, setcardHandlerColorHslH] = useState<number>((projectDivBgHslHColorsDefault + 120) % 360);
+  const [cardHandlerColorHslH, setcardHandlerColorHslH] = useState<number>(getRandomHslColorH());
   const [cardHandlerOpeningColor, setcardHandlerOpeningColor] = useState('');
   const [cardHandlerOpeningTextColor, setcardHandlerOpeningTextColor] = useState('');
 
@@ -136,7 +134,7 @@ export default function MainSection() {
             setcardHandlerOpeningColor('');
             setcardHandlerOpeningTextColor('');
 
-            updateCardHandlerInterval = setInterval(updateCardHandler, 1000);
+            updateCardHandlerInterval = setInterval(updateCardHandler, 100);
 
           }, 5000);
 
@@ -146,7 +144,7 @@ export default function MainSection() {
 
     }
 
-    updateCardHandlerInterval = setInterval(updateCardHandler, 1000);
+    updateCardHandlerInterval = setInterval(updateCardHandler, 100);
 
   }, []);
 
@@ -170,25 +168,17 @@ export default function MainSection() {
 
     setplaySeeWhyAnimation(false);
 
-    AnimatedDiv.current?.classList.remove(styles.seeWhyAnimation);
-
-    setTimeout(function () {
-      AnimatedDiv.current?.classList.add(styles.seeWhyAnimation);
-    }, 1);
-
     while (randomNumber === backgroundIndex) {
       randomNumber = getRandomBackgroundIndex();
     }
 
     setbackgroundIndex(randomNumber);
 
-    setfisrtColumnWidth(33);
+    setfirstColumnWidth(33);
 
     const projectDivBgHslHColorsDefault = getRandomHslColorH()
 
-    // Para garantir que as cores das divs sejam diferentes.
-    setprojectDivBgHslHColorsDefault(projectDivBgHslHColorsDefault);
-    setcardHandlerColorHslH((projectDivBgHslHColorsDefault + 120) % 360)
+    setcardHandlerColorHslH(projectDivBgHslHColorsDefault);
 
     placeProjectButtons();
 
@@ -204,7 +194,7 @@ export default function MainSection() {
 
       if (firstColumnWidth >= 30 && firstColumnWidth <= 70) {
 
-        setfisrtColumnWidth(firstColumnWidth);
+        setfirstColumnWidth(firstColumnWidth);
 
       }
 
@@ -371,7 +361,7 @@ export default function MainSection() {
 
       <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
 
-        <div style={{ width: `${fisrtColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
+        <div style={{ width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
 
           <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
@@ -398,8 +388,8 @@ export default function MainSection() {
 
           <div
             ref={AnimatedDiv}
-            style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${fisrtColumnWidth}%`, animationPlayState: playSeeWhyAnimation ? 'running' : 'paused' }}
-            className={styles.seeWhyAnimation + ` bg-top`} />
+            style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${firstColumnWidth}%` }}
+            className={`${styles.seeWhy} ${playSeeWhyAnimation ? styles.seeWhyAnimation : ''} bg-top`} />
 
           <button
             onClick={() => setplaySeeWhyAnimation(true)}
@@ -414,15 +404,16 @@ export default function MainSection() {
 
         <div
           ref={ProjectsDiv}
-          style={{ width: `${100 - fisrtColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
+          style={{ width: `${100 - firstColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
           className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
           onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
-          <motion.div ref={constraintsRef} style={{ backgroundColor: playSeeWhyAnimation ? 'transparent' : `hsl(${projectDivBgHslHColorsDefault},100%,75%)` }} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
+          <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
             <div
               ref={CardHandler}
-              style={{ width: `calc(${100 - fisrtColumnWidth}% - 4px)`, backgroundColor: cardHandlerOpeningColor ? cardHandlerOpeningColor : `hsl(${cardHandlerColorHslH},100%,75%)`, color: cardHandlerOpeningTextColor ? cardHandlerOpeningTextColor : '' }} className='absolute bottom-0 flex flex-col justify-center items-center h-16 transition-all duration-1000'>
+              style={{ width: `calc(${100 - firstColumnWidth}% - 4px)`, backgroundColor: cardHandlerOpeningColor ? cardHandlerOpeningColor : `hsl(${cardHandlerColorHslH},100%,75%)`, color: cardHandlerOpeningTextColor ? cardHandlerOpeningTextColor : '' }}
+              className='absolute bottom-0 flex flex-col justify-center items-center h-16 transition-colors duration-1000'>
               <span className='font-medium'>{cardHandlerTitle}</span>
               <span className='font-light text-sm'>{cardHandlerSubtitle}</span>
             </div>
@@ -453,6 +444,8 @@ export default function MainSection() {
               date='2021' />
 
           </motion.div>
+
+          <div style={{ width: `calc(${100 - firstColumnWidth}% + 10px)` }} className={`${playSeeWhyAnimation ? styles.projectsDivCover : ''} absolute z-20 h-dvh w-full bg-stone-100`}></div>
 
         </div>
 

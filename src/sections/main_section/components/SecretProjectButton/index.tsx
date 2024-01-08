@@ -7,7 +7,7 @@ const SecretProjectButton = forwardRef(function (props: React.DetailedHTMLProps<
     <button
       ref={ref as React.RefObject<HTMLButtonElement>}
       {...props}
-      className={props.className + ' absolute z-50 flex flex-col justify-around items-center !cursor-not-allowed w-44 h-28 p-2 rounded-lg shadow-2xl bg-black transition-all ease-out duration-100'}
+      className={props.className + ' absolute z-10 flex flex-col justify-around items-center !cursor-not-allowed w-44 h-28 p-2 rounded-lg shadow-2xl bg-black transition-all ease-out duration-100'}
       type='button'>
 
       <h4 className="text-lg font-bold text-gray-700">SECRET PROJECT</h4>
