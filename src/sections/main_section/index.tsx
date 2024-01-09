@@ -117,11 +117,35 @@ export default function MainSection() {
           const projectSubtitle = projectButton.children[1].textContent;
           const projectColor = projectButton.style.backgroundColor;
           const projectTextColor = (projectButton.children[0] as HTMLElement).style.color;
+          const projectCardKey = projectButton.getAttribute('data-project-card-key');
 
           setcardHandlerTitle(`Opening: ${projectTitle}...`);
           setcardHandlerSubtitle(projectSubtitle || '');
           setcardHandlerOpeningColor(projectColor);
           setcardHandlerOpeningTextColor(projectTextColor);
+
+          // Após 2 segundos o efeito dos botões é disparado.
+          setTimeout(function () {
+
+            switch (projectCardKey) {
+
+              case '1':
+                setshowCurriculumProjectsModal(true);
+                break;
+
+              case '2':
+                setshowDevelopmentChallengesModal(true);
+                break;
+
+              default:
+                break;
+
+            }
+
+            // O cartão selecionado é movido para fora da barra pra evitar que ele seja selecionado múltiplas vezes seguidas.
+            projectButton.style.setProperty('margin-bottom', (Number(projectButton.style.marginBottom.replace('px', '')) + 90 + (Math.random() * (window.innerHeight - 90)) - projectButton.offsetHeight).toString(10) + 'px');
+
+          }, 2000);
 
           // Se um dos carões encostar na na barra, a leitura é pausada.
           clearInterval(updateCardHandlerInterval);
@@ -428,6 +452,7 @@ export default function MainSection() {
             {/* @ts-ignore */}
             <ProjectButton
               dragConstraints={constraintsRef}
+              cardKey='1'
               textColor='black'
               backgroundColorAngle={28}
               title='Curriculum Projects'
@@ -437,6 +462,7 @@ export default function MainSection() {
             {/* @ts-ignore */}
             <ProjectButton
               dragConstraints={constraintsRef}
+              cardKey='2'
               textColor='whitesmoke'
               backgroundColorAngle={247}
               title='Challenges'
@@ -451,6 +477,8 @@ export default function MainSection() {
 
         <ProfileModal state={showProfileModal} setState={setshowProfileModal} />
 
+        <CurriculumProjectsModal state={showCurriculumProjectsModal} setState={setshowCurriculumProjectsModal} />
+        <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
 
 
 

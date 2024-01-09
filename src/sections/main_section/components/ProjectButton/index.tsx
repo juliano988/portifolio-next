@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function ProjectButton(props: {
   ref?: React.RefObject<HTMLButtonElement>,
+  cardKey?: string
   dragConstraints: React.MutableRefObject<null>,
   textColor: 'black' | 'whitesmoke',
   backgroundColorAngle: number,
@@ -40,8 +41,10 @@ export default function ProjectButton(props: {
     <motion.button
       {...props}
       style={{ backgroundColor: `hsl(${props.backgroundColorAngle % 360},80%,50%)`, cursor: isGrabbing ? 'grabbing' : 'grab' }}
-      className='absolute flex flex-col justify-around items-center w-44 h-28 p-2 rounded-lg shadow-2xl'
+      className='absolute flex flex-col justify-around items-center cursor-grab w-44 h-28 p-2 rounded-lg shadow-2xl transition-[margin-bottom] duration-1000'
       type='button'
+      // Propriedade customizada para identificar o projeto
+      data-project-card-key={props.cardKey}
       drag
       dragElastic={0.2}
       dragConstraints={props.dragConstraints}
