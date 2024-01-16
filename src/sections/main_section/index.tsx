@@ -137,6 +137,14 @@ export default function MainSection() {
                 setshowDevelopmentChallengesModal(true);
                 break;
 
+              case '3':
+                setselectedSection(<TakeHomeProjects />);
+                break;
+
+              case '4':
+                window.open('https://lotoproweb.com.br', '_blank')?.focus();
+                break;
+
               default:
                 break;
 
@@ -171,20 +179,6 @@ export default function MainSection() {
     updateCardHandlerInterval = setInterval(updateCardHandler, 100);
 
   }, []);
-
-  function handleClickButtons(secId: string) {
-
-    switch (secId) {
-
-      case '#fcc_THP': setselectedSection(<TakeHomeProjects />); break;
-
-      default: break;
-
-    }
-
-    setTimeout(() => window.location.href = secId, 500);
-
-  }
 
   function resetPage() {
 
@@ -469,6 +463,26 @@ export default function MainSection() {
               subtitle='Job applications'
               date='2021' />
 
+            {/* @ts-ignore */}
+            <ProjectButton
+              dragConstraints={constraintsRef}
+              cardKey='3'
+              textColor='black'
+              backgroundColorAngle={130}
+              title='Take a Home Projects'
+              subtitle='freeCodeCamp'
+              date='2021' />
+
+            {/* @ts-ignore */}
+            <ProjectButton
+              dragConstraints={constraintsRef}
+              cardKey='4'
+              textColor='black'
+              backgroundColorAngle={300}
+              title='LotoPro Web 🤑'
+              subtitle='micro SaaS Product'
+              date='2023 - ♾️' />
+
           </motion.div>
 
           <div style={{ width: `calc(${100 - firstColumnWidth}% + 10px)` }} className={`${playSeeWhyAnimation ? styles.projectsDivCover : ''} absolute z-20 h-dvh w-full bg-stone-100`}></div>
@@ -479,46 +493,6 @@ export default function MainSection() {
 
         <CurriculumProjectsModal state={showCurriculumProjectsModal} setState={setshowCurriculumProjectsModal} />
         <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
-
-
-
-
-        {/* {showBgVideo &&
-        <video className={styles.bg_video} autoPlay muted loop>
-          <source src="imgs/bgs/bg.mp4" type="video/mp4" />
-        </video>}
-
-      <div className={styles.intro_div}>
-
-        <p className={styles.synthetic_tippy}>Want to know me better?<br /> <b>So click on my name!</b></p>
-
-        <div className={styles.title}>
-
-          <h1 onClick={() => setshowProfileModal(true)}>Júlio Faria</h1>
-          <ProfileModal state={showProfileModal} setState={setshowProfileModal} />
-          <h5>Engineer and Full Stack Web Developer</h5>
-
-        </div>
-
-        <div className={styles.projects}>
-
-          <h5>Projects:</h5>
-
-          <div>
-
-            <Button onClick={() => setshowCurriculumProjectsModal(true)} variant="dark">freeCodeCamp<br /> Curriculum Projects</Button>
-            <CurriculumProjectsModal state={showCurriculumProjectsModal} setState={setshowCurriculumProjectsModal} />
-
-            <Button onClick={() => setshowDevelopmentChallengesModal(true)} variant="primary">Company Development Challenges</Button>
-            <DevelopmentChallengesModal state={showDevelopmentChallengesModal} setState={setshowDevelopmentChallengesModal} />
-
-            <Button onClick={() => handleClickButtons("#fcc_THP")} variant="success"> freeCodeCamp<br /> Take Home Projects</Button>
-
-          </div>
-
-        </div>
-
-      </div> */}
 
       </section >
 
