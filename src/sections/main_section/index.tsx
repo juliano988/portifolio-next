@@ -470,7 +470,7 @@ export default function MainSection() {
 
       <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex overflow-hidden' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
 
-        <div style={{ display: isCellPhone ? firstColumnWidth === 100 ? '' : 'none' : '', width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-dvh bg-stone-100'>
+        <div style={{ display: isCellPhone ? firstColumnWidth === 100 ? '' : 'none' : '', width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
 
           <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
@@ -508,12 +508,12 @@ export default function MainSection() {
 
         </div>
 
-        <span style={{ display: isCellPhone ? 'none' : '' }} className='h-dvh cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
+        <span style={{ display: isCellPhone ? 'none' : '' }} className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
         <div
           ref={ProjectsDiv}
           style={{ display: isCellPhone ? firstColumnWidth === 100 ? 'none' : '' : '', width: `${100 - firstColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
-          className={styles.moveProjectsBg + ' flex justify-center items-center h-dvh bg-[length:200%_200%]'}
+          className={styles.moveProjectsBg + ' flex justify-center items-center h-screen bg-[length:200%_200%]'}
           onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
           <FaChevronLeft
@@ -521,7 +521,7 @@ export default function MainSection() {
             className='absolute top-3 text-white text-xl cursor-pointer hover:-translate-x-1 transition duration-500 [text-shadow:_3px_3px_20px_#575757]'
             onClick={() => resetPage()} />
 
-          <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-dvh transition-all duration-1000'>
+          <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-screen transition-all duration-1000'>
 
             <div
               ref={CardHandler}
@@ -580,7 +580,7 @@ export default function MainSection() {
 
           </motion.div>
 
-          <div style={{ width: `calc(${100 - firstColumnWidth}% + 10px)` }} className={`${playSeeWhyAnimation ? styles.projectsDivCover : ''} absolute z-20 h-dvh w-full bg-stone-100`}></div>
+          <div style={{ width: `calc(${100 - firstColumnWidth}% + 10px)` }} className={`${playSeeWhyAnimation ? styles.projectsDivCover : ''} absolute z-20 h-screen w-full bg-stone-100`}></div>
 
         </div>
 
