@@ -7,7 +7,7 @@ import SelectedSectionContext from '../../app/context/SelectedSectionContext';
 import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 import TakeHomeProjects from '../fcc_THP';
 import { TfiReload } from "react-icons/tfi";
-import { FaCircleInfo } from "react-icons/fa6";
+import { FaChevronLeft, FaCircleInfo } from "react-icons/fa6";
 import bg0 from './images/background/0.jpeg';
 import bg1 from './images/background/1.jpeg';
 import bg2 from './images/background/2.jpeg';
@@ -26,6 +26,8 @@ export default function MainSection() {
   const SecretProject = useRef<HTMLButtonElement>(null);
   const CardHandler = useRef<HTMLDivElement>(null);
   const constraintsRef = useRef(null);
+
+  const [isCellPhone, setisCellPhone] = useState<boolean>(false);
 
   const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4]);
   const [backgroundDescriptions, setbackgroundDescriptions] = useState<Array<string>>([
@@ -62,6 +64,39 @@ export default function MainSection() {
 
   const setselectedSection = useContext(SelectedSectionContext);
 
+  useEffect(function () {
+
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth <= 600) {
+
+      setisCellPhone(true);
+
+    } else {
+
+      setisCellPhone(false);
+
+    }
+
+  }, [window.innerWidth]);
+
+  useEffect(function () {
+
+    if (isCellPhone) {
+
+      setfirstColumnWidth(100);
+
+    } else {
+
+      setfirstColumnWidth(33);
+
+    }
+
+    // Caso a resolução altere de celular pra pc ou vice-versa, a página é reiniciada.
+    resetPage();
+
+  }, [isCellPhone]);
+
   // Efeito de mover a imagem do botão 'See why'
   useEffect(function () {
 
@@ -89,12 +124,25 @@ export default function MainSection() {
   useEffect(function () {
 
     if (ProjectsDiv.current && constraintsRef.current, SecretProject.current) {
-
       placeProjectButtons();
-
     }
 
   }, [ProjectsDiv.current, constraintsRef.current, SecretProject.current]);
+
+  // Insere transição de coluna quando for no celular.
+  useEffect(function () {
+
+    if (isCellPhone && playSeeWhyAnimation) {
+
+      setTimeout(function () {
+
+        setfirstColumnWidth(0);
+
+      }, 2500);
+
+    }
+
+  }, [playSeeWhyAnimation]);
 
   useEffect(function () {
 
@@ -138,7 +186,7 @@ export default function MainSection() {
                 break;
 
               case '3':
-                setselectedSection(<TakeHomeProjects />);
+                handleClickButtons('#fcc_THP');
                 break;
 
               case '4':
@@ -176,9 +224,28 @@ export default function MainSection() {
 
     }
 
-    updateCardHandlerInterval = setInterval(updateCardHandler, 100);
+    // Não executa a leitura dos cartões se estiver no celular e com a primeira coluna sendo exibida.
+    if (!(isCellPhone && firstColumnWidth === 100)) {
+      updateCardHandlerInterval = setInterval(updateCardHandler, 100);
+    }
 
-  }, []);
+    return () => clearInterval(updateCardHandlerInterval);
+
+  }, [isCellPhone, firstColumnWidth]);
+
+  function handleClickButtons(secId: string) {
+
+    switch (secId) {
+
+      case '#fcc_THP': setselectedSection(<TakeHomeProjects />); break;
+
+      default: break;
+
+    }
+
+    setTimeout(() => window.location.href = secId, 500);
+
+  }
 
   function resetPage() {
 
@@ -192,9 +259,9 @@ export default function MainSection() {
 
     setbackgroundIndex(randomNumber);
 
-    setfirstColumnWidth(33);
+    setfirstColumnWidth(isCellPhone ? 100 : 33);
 
-    const projectDivBgHslHColorsDefault = getRandomHslColorH()
+    const projectDivBgHslHColorsDefault = getRandomHslColorH();
 
     setcardHandlerColorHslH(projectDivBgHslHColorsDefault);
 
@@ -368,7 +435,7 @@ export default function MainSection() {
 
   function getProjectButtons() {
 
-    return Array.from((ProjectsDiv.current as HTMLDivElement).children[0].children)
+    return Array.from((ProjectsDiv.current as HTMLDivElement).children[1].children)
       .filter(function (element) { return element.tagName === 'BUTTON' }) as Array<HTMLButtonElement>;
 
   }
@@ -377,9 +444,9 @@ export default function MainSection() {
 
     <>
 
-      <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
+      <section style={{ cursor: movingMiddleBar ? 'col-resize' : 'unset' }} id="main_sec" className='flex overflow-hidden' onMouseUp={(e) => setmovingMiddleBar(false)} onMouseMove={(e) => handleMovingMiddleBar(e)}>
 
-        <div style={{ width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
+        <div style={{ display: isCellPhone ? firstColumnWidth === 100 ? '' : 'none' : '', width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
 
           <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
@@ -394,13 +461,13 @@ export default function MainSection() {
           </div>
 
           <h1
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-sm:bottom-14 z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
             Júlio<br />Faria
           </h1>
 
           <h4
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-2xl'}>
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-sm:bottom-14 z-10 text-2xl'}>
             A <span className='font-bold'>master</span> of JavaScript
           </h4>
 
@@ -411,20 +478,24 @@ export default function MainSection() {
 
           <button
             onClick={() => setplaySeeWhyAnimation(true)}
-            style={{ position: 'fixed', bottom: '25vh' }}
-            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
+            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' ' + styles.seeWhyText + ' fixed bottom-[25vh] text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
             See why ⮞
           </button>
 
         </div>
 
-        <span className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
+        <span style={{ display: isCellPhone ? 'none' : '' }} className='h-screen cursor-col-resize w-1' onMouseDown={(e) => setmovingMiddleBar(true)}></span>
 
         <div
           ref={ProjectsDiv}
-          style={{ width: `${100 - firstColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
+          style={{ display: isCellPhone ? firstColumnWidth === 100 ? 'none' : '' : '', width: `${100 - firstColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
           className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
           onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
+
+          <FaChevronLeft
+            style={{ display: isCellPhone ? '' : 'none', left: `calc(${firstColumnWidth}% + 15px)` }}
+            className='absolute top-3 text-white text-xl cursor-pointer hover:-translate-x-1 transition duration-500 [text-shadow:_3px_3px_20px_#575757]'
+            onClick={() => resetPage()} />
 
           <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-full transition-all duration-1000'>
 
@@ -432,7 +503,7 @@ export default function MainSection() {
               ref={CardHandler}
               style={{ width: `calc(${100 - firstColumnWidth}% - 4px)`, backgroundColor: cardHandlerOpeningColor ? cardHandlerOpeningColor : `hsl(${cardHandlerColorHslH},100%,75%)`, color: cardHandlerOpeningTextColor ? cardHandlerOpeningTextColor : '' }}
               className='absolute bottom-0 flex flex-col justify-center items-center h-16 transition-colors duration-1000'>
-              <span className='font-medium'>{cardHandlerTitle}</span>
+              <span className='font-bold text-lg'>{cardHandlerTitle}</span>
               <span className='font-light text-sm'>{cardHandlerSubtitle}</span>
             </div>
 
