@@ -66,19 +66,23 @@ export default function MainSection() {
 
   useEffect(function () {
 
-    const windowWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
 
-    if (windowWidth <= 600) {
+      const windowWidth = window.innerWidth;
 
-      setisCellPhone(true);
+      if (windowWidth <= 600) {
 
-    } else {
+        setisCellPhone(true);
 
-      setisCellPhone(false);
+      } else {
 
-    }
+        setisCellPhone(false);
 
-  }, [window.innerWidth]);
+      }
+
+    })
+
+  }, []);
 
   useEffect(function () {
 
