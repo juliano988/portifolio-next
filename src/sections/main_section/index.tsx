@@ -64,12 +64,32 @@ export default function MainSection() {
 
   const setselectedSection = useContext(SelectedSectionContext);
 
+  // Verifica a largura da página assim que a mesma carrega.
+  useEffect(function () {
+
+    const windowWidth = window.innerWidth;
+
+    // 1024px corresponde a 'lg' no tailwind.
+    if (windowWidth <= 1024) {
+
+      setisCellPhone(true);
+
+    } else {
+
+      setisCellPhone(false);
+
+    }
+
+  }, []);
+
+  // Verifica a largura da página toda vez que ela é redimensionada.
   useEffect(function () {
 
     window.addEventListener('resize', function () {
 
       const windowWidth = window.innerWidth;
 
+      // 1024px corresponde a 'lg' no tailwind.
       if (windowWidth <= 1024) {
 
         setisCellPhone(true);
