@@ -485,13 +485,13 @@ export default function MainSection() {
           </div>
 
           <h1
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-[12.5dvh] z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
             Júlio<br />Faria
           </h1>
 
           <h4
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-2xl'}>
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-[12.5dvh] z-10 text-2xl'}>
             A <span className='font-bold'>master</span> of JavaScript
           </h4>
 
