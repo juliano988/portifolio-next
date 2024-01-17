@@ -485,24 +485,24 @@ export default function MainSection() {
           </div>
 
           <h1
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:!bottom-20 z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
             Júlio<br />Faria
           </h1>
 
           <h4
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:!bottom-20 z-10 text-2xl'}>
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative z-10 text-2xl'}>
             A <span className='font-bold'>master</span> of JavaScript
           </h4>
 
           <div
             ref={AnimatedDiv}
             style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${firstColumnWidth}%` }}
-            className={`${styles.seeWhy} ${playSeeWhyAnimation ? styles.seeWhyAnimation : ''} bg-top`} />
+            className={`${playSeeWhyAnimation ? styles.seeWhyAnimation : ''} absolute bottom-[25dvh] max-lg:bottom-[12.5dvh] w-[150px] h-[60px] rounded-[80px] bg-top`} />
 
           <button
             onClick={() => setplaySeeWhyAnimation(true)}
-            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' ' + styles.seeWhyText + ' fixed bottom-[25vh] text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
+            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' ' + styles.seeWhyText + ' fixed bottom-[25dvh] max-lg:bottom-[12.5dvh] text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
             See why ⮞
           </button>
 
@@ -513,7 +513,7 @@ export default function MainSection() {
         <div
           ref={ProjectsDiv}
           style={{ display: isCellPhone ? firstColumnWidth === 100 ? 'none' : '' : '', width: `${100 - firstColumnWidth}%`, backgroundImage: `linear-gradient(${seeWhyBgCounter * 3.6}deg, hsl(${projectDivBgHslHColors[0]},100%,50%) 0%, hsl(${projectDivBgHslHColors[1]},100%,50%) 50%, hsl(${projectDivBgHslHColors[2]},100%,50%) 100%)` }}
-          className={styles.moveProjectsBg + ' flex justify-center items-center items-cente h-screen bg-[length:200%_200%]'}
+          className={styles.moveProjectsBg + ' flex justify-center items-center h-screen bg-[length:200%_200%]'}
           onMouseDown={(e) => handleChangeProjectsDivBgColors(e)}>
 
           <FaChevronLeft
