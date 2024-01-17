@@ -70,7 +70,7 @@ export default function MainSection() {
 
       const windowWidth = window.innerWidth;
 
-      if (windowWidth <= 600) {
+      if (windowWidth <= 1024) {
 
         setisCellPhone(true);
 
@@ -465,13 +465,13 @@ export default function MainSection() {
           </div>
 
           <h1
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-sm:bottom-14 z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-14 z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
             Júlio<br />Faria
           </h1>
 
           <h4
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-sm:bottom-14 z-10 text-2xl'}>
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-14 z-10 text-2xl'}>
             A <span className='font-bold'>master</span> of JavaScript
           </h4>
 
