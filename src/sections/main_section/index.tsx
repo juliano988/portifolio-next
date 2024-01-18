@@ -210,7 +210,7 @@ export default function MainSection() {
             }
 
             // O cartão selecionado é movido para fora da barra pra evitar que ele seja selecionado múltiplas vezes seguidas.
-            projectButton.style.setProperty('margin-bottom', (Number(projectButton.style.marginBottom.replace('px', '')) + (64 * 2) + (Math.random() * (window.innerHeight - (64 * 2))) - projectButton.offsetHeight).toString(10) + 'px');
+            projectButton.style.setProperty('margin-bottom', (Number(projectButton.style.marginBottom.replace('px', '')) + (64 * 5) + (Math.random() * (window.innerHeight - (64 * 2))) - projectButton.offsetHeight).toString(10) + 'px');
 
           }, 2000);
 
