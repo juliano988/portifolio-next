@@ -7,12 +7,13 @@ import SelectedSectionContext from '../../app/context/SelectedSectionContext';
 import DevelopmentChallengesModal from './DevelopmentChallengesModal';
 import TakeHomeProjects from '../fcc_THP';
 import { TfiReload } from "react-icons/tfi";
-import { FaChevronLeft, FaCircleInfo } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight, FaCircleInfo } from "react-icons/fa6";
 import bg0 from './images/background/0.jpeg';
 import bg1 from './images/background/1.jpeg';
 import bg2 from './images/background/2.jpeg';
 import bg3 from './images/background/3.jpeg';
 import bg4 from './images/background/4.jpeg';
+import bg5 from './images/background/5.jpeg';
 import { StaticImageData } from 'next/image';
 import { BoundingBox, motion } from 'framer-motion';
 import { SlowBuffer } from 'buffer';
@@ -29,13 +30,14 @@ export default function MainSection() {
 
   const [isCellPhone, setisCellPhone] = useState<boolean>(false);
 
-  const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4]);
+  const [backgroundImages, setbackgroundImages] = useState<Array<StaticImageData>>([bg0, bg1, bg2, bg3, bg4, bg5]);
   const [backgroundDescriptions, setbackgroundDescriptions] = useState<Array<string>>([
     "A starry night is really beautiful! Isn't it? 🤩",
     "Coding for me is not just a job, is one of my deepest passions! 🤓",
     "I love to participate on running competitions! One of my objectives is to run a marathon 🏃‍♂️",
     "I always go to the GYM to get in shape! 🏋️",
-    "Rock is the best music style, don't you agree? 🤘"
+    "Rock is the best music style, don't you agree? 🤘",
+    "Horror movies are my favorites! Especially those that make me think… 🤔"
   ]);
   const [backgroundIndex, setbackgroundIndex] = useState<number>(getRandomBackgroundIndex());
 
@@ -152,21 +154,6 @@ export default function MainSection() {
     }
 
   }, [ProjectsDiv.current, constraintsRef.current, SecretProject.current]);
-
-  // Insere transição de coluna quando for no celular.
-  useEffect(function () {
-
-    if (isCellPhone && playSeeWhyAnimation) {
-
-      setTimeout(function () {
-
-        setfirstColumnWidth(0);
-
-      }, 2500);
-
-    }
-
-  }, [playSeeWhyAnimation]);
 
   useEffect(function () {
 
@@ -472,13 +459,18 @@ export default function MainSection() {
 
         <div style={{ display: isCellPhone ? firstColumnWidth === 100 ? '' : 'none' : '', width: `${firstColumnWidth}%` }} className='flex justify-center items-center flex-col h-screen bg-stone-100'>
 
+          <FaChevronRight
+            style={{ display: isCellPhone ? '' : 'none' }}
+            className='absolute z-10 bottom-3 right-4 text-white text-xl cursor-pointer hover:translate-x-1 transition duration-500 [text-shadow:_3px_3px_20px_#575757]'
+            onClick={() => setfirstColumnWidth(0)} />
+
           <span className='absolute top-2 left-2 z-20 text-white text-xl cursor-pointer hover:rotate-180 transition duration-500 [text-shadow:_3px_3px_20px_#575757]' onClick={() => resetPage()}><TfiReload /></span>
 
           <div className='flex gap-4 absolute top-10 left-2 z-20'>
 
             <FaCircleInfo className='text-white text-xl cursor-help peer [text-shadow:_3px_3px_20px_#575757]' />
 
-            <div className='bg-white p-2 rounded-sm max-w-[25vw] scale-0 opacity-0 transition-opacity duration-500 peer-hover:scale-100 peer-hover:opacity-100'>
+            <div className='bg-white p-2 rounded-sm max-w-[25vw] max-lg:max-w-[calc(100vw-100px)] scale-0 opacity-0 transition-opacity duration-500 peer-hover:scale-100 peer-hover:opacity-100'>
               {backgroundDescriptions[backgroundIndex]}
             </div>
 
@@ -519,7 +511,7 @@ export default function MainSection() {
           <FaChevronLeft
             style={{ display: isCellPhone ? '' : 'none', left: `calc(${firstColumnWidth}% + 15px)` }}
             className='absolute top-3 text-white text-xl cursor-pointer hover:-translate-x-1 transition duration-500 [text-shadow:_3px_3px_20px_#575757]'
-            onClick={() => resetPage()} />
+            onClick={() => setfirstColumnWidth(100)} />
 
           <motion.div ref={constraintsRef} className='flex justify-center items-center w-full h-screen transition-all duration-1000'>
 
