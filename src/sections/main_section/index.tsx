@@ -210,7 +210,7 @@ export default function MainSection() {
             }
 
             // O cartão selecionado é movido para fora da barra pra evitar que ele seja selecionado múltiplas vezes seguidas.
-            projectButton.style.setProperty('margin-bottom', (Number(projectButton.style.marginBottom.replace('px', '')) + 90 + (Math.random() * (window.innerHeight - 90)) - projectButton.offsetHeight).toString(10) + 'px');
+            projectButton.style.setProperty('margin-bottom', (Number(projectButton.style.marginBottom.replace('px', '')) + (64 * 2) + (Math.random() * (window.innerHeight - (64 * 2))) - projectButton.offsetHeight).toString(10) + 'px');
 
           }, 2000);
 
@@ -477,24 +477,24 @@ export default function MainSection() {
           </div>
 
           <h1
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-[12.5dvh] z-10 text-9xl font-bold cursor-pointer hover:underline'}
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative bottom-[12.5dvh] z-10 text-9xl font-bold cursor-pointer hover:underline'}
             onClick={() => setshowProfileModal(true)}>
             Júlio<br />Faria
           </h1>
 
           <h4
-            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative max-lg:bottom-[12.5dvh] z-10 text-2xl'}>
+            className={(playSeeWhyAnimation ? styles.changeColorToWhite : '') + ' relative bottom-[12.5dvh] z-10 text-2xl'}>
             A <span className='font-bold'>master</span> of JavaScript
           </h4>
 
           <div
             ref={AnimatedDiv}
             style={{ backgroundImage: `url(${backgroundImages[backgroundIndex].src})`, backgroundPosition: `${seeWhyBgCounter}% 50%`, maxWidth: `${firstColumnWidth}%` }}
-            className={`${playSeeWhyAnimation ? styles.seeWhyAnimation : ''} absolute bottom-[25dvh] max-lg:bottom-[12.5dvh] w-[150px] h-[60px] rounded-[80px] bg-top`} />
+            className={`${playSeeWhyAnimation ? styles.seeWhyAnimation : ''} absolute bottom-[12.5dvh] w-[150px] h-[60px] rounded-[80px] bg-top`} />
 
           <button
             onClick={() => setplaySeeWhyAnimation(true)}
-            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' ' + styles.seeWhyText + ' fixed bottom-[25dvh] max-lg:bottom-[12.5dvh] text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
+            className={playSeeWhyAnimation ? styles.hideSeeWhy : '' + ' ' + styles.seeWhyText + ' fixed bottom-[12.5dvh] text-xl text-white pt-3 pb-3 pr-4 pl-4 rounded-full [text-shadow:_3px_3px_20px_#575757]'}>
             See why ⮞
           </button>
 
