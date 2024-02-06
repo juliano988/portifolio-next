@@ -186,7 +186,7 @@ export default function ProfileModal(props: { state: boolean, setState: React.Di
 
         <h5 className='text-2xl font-semibold'>Development tools learned</h5>
 
-        <div className='flex justify-evenly flex-wrap'>
+        <div className='flex justify-evenly items-center flex-wrap'>
           <ToolsTippy content="HTML5">  <Image width={80} height={80} className='m-1 rounded-xl' src={html.src} alt="HTML5" /> </ToolsTippy>
           <ToolsTippy content="CSS3"> <Image width={80} height={80} className='m-1 rounded-xl' src={css.src} alt="CSS3" /> </ToolsTippy>
           <ToolsTippy content="JavaScript" > <Image width={80} height={80} className='m-1 rounded-xl' src={javaScript.src} alt="JavaScript" /> </ToolsTippy>

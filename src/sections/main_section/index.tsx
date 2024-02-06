@@ -1,5 +1,4 @@
 import styles from '../../styles/sections/main_section/index_styles.module.scss';
-import { Button } from 'react-bootstrap';
 import React, { RefObject, useContext, useEffect, useRef, useState } from 'react';
 import ProfileModal from './ProfileModal';
 import CurriculumProjectsModal from './CurriculumProjectsModal';
@@ -15,8 +14,7 @@ import bg3 from './images/background/3.jpeg';
 import bg4 from './images/background/4.jpeg';
 import bg5 from './images/background/5.jpeg';
 import { StaticImageData } from 'next/image';
-import { BoundingBox, motion } from 'framer-motion';
-import { SlowBuffer } from 'buffer';
+import { motion } from 'framer-motion';
 import ProjectButton from './components/ProjectButton';
 import SecretProjectButton from './components/SecretProjectButton';
 
