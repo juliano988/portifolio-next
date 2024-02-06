@@ -562,7 +562,7 @@ export default function MainSection() {
               backgroundColorAngle={130}
               title='Take a Home Projects'
               subtitle='freeCodeCamp'
-              date='2021' />
+              date='2021 - 2024' />
 
             {/* @ts-ignore */}
             <ProjectButton
