@@ -199,10 +199,6 @@ export default function MainSection() {
                 break;
 
               case '4':
-                window.open('https://lotoproweb.com.br', '_blank')?.focus();
-                break;
-
-              case '5':
                 window.open('https://one-on-ones-jf.netlify.app', '_blank')?.focus();
                 break;
 
@@ -566,16 +562,6 @@ export default function MainSection() {
             <ProjectButton
               dragConstraints={constraintsRef}
               cardKey='4'
-              textColor='black'
-              backgroundColorAngle={300}
-              title='LotoPro Web 🤑'
-              subtitle='micro SaaS Product'
-              date='2023 - ♾️' />
-
-            {/* @ts-ignore */}
-            <ProjectButton
-              dragConstraints={constraintsRef}
-              cardKey='5'
               textColor='black'
               backgroundColorAngle={170}
               title='Postgraduate final Project'
