@@ -35,12 +35,12 @@ export default function TakeHomeProjects() {
 
         <Carousel.Item>
 
-          <iframe src="https://7n29l8-3000.csb.app/"></iframe>
+          <iframe src="https://tic-tac-toe-multiplayer-jf-c1c72d09607a.herokuapp.com"></iframe>
 
           <Carousel.Caption>
             <h4>Tic-Tac-Toe Multiplayer 🎮</h4>
             <p>A multiplayer game developed using <a href="https://socket.io/" target="_blank">Socket.io</a></p>
-            <a href="https://7n29l8-3000.csb.app/" target="_blank">Click here to access the project</a><br/>
+            <a href="https://tic-tac-toe-multiplayer-jf-c1c72d09607a.herokuapp.com" target="_blank">Click here to access the project</a><br/>
           </Carousel.Caption>
 
         </Carousel.Item>
